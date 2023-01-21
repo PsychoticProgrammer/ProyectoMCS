@@ -15,7 +15,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
-        this.jlblcarritoImagen.setVisible(false);
+        this.jlblcarritoImagen.setVisible(true);
         loggedClient = cliente;
         pantallaInicial = this;
         GraphicsEnvironment env =
