@@ -31,17 +31,18 @@ public class CRUDCarrito {
     
     public ArrayList<String[]> readProductosCarrito(){
         try{
-            String sql = "SELECT P.NOM_PRO, P.PRE_PRO, I.IMG1 FROM PRODUCTOS P, IMAGENES_PRODUCTO I "+
+            String sql = "SELECT P.COD_PRO, P.NOM_PRO, P.PRE_PRO, I.IMG1 FROM PRODUCTOS P, IMAGENES_PRODUCTO I "+
                     "WHERE I.COD_PRO_PER = P.COD_PRO AND P.COD_PRO IN (SELECT COD_PRO_CAR FROM CARRITO WHERE ID_PER_CAR = ?)";
             this.ps = this.conexion.getConnection().prepareStatement(sql);
             this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
             this.rs = this.ps.executeQuery();
             ArrayList<String[]> productos = new ArrayList();
             while(this.rs.next()){
-                String[] datos = new String[3];
-                datos[0] = this.rs.getString(1);
-                datos[1] = String.valueOf(this.rs.getFloat(2));
-                datos[2] = this.rs.getString(3);
+                String[] datos = new String[4];
+                datos[0] = String.valueOf(this.rs.getInt(1));
+                datos[1] = this.rs.getString(2);
+                datos[2] = String.valueOf(this.rs.getFloat(3));
+                datos[3] = this.rs.getString(4);
                 productos.add(datos);
             }
             return productos;
@@ -64,7 +65,7 @@ public class CRUDCarrito {
         }
     }
     
-    private void alterarCantidadProductos(int codigoProducto, int cantidad, char operacion){
+    public void alterarCantidadProductos(int codigoProducto, int cantidad, char operacion){
         try{
             String sql = "UPDATE PRODUCTOS SET UNI_DIS_PRO = UNI_DIS_PRO " + operacion + " ? " +
                     "WHERE COD_PRO = ?";
@@ -74,6 +75,26 @@ public class CRUDCarrito {
             this.ps.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
+        }
+    }
+    
+    public boolean estaEnCarrito(int codigoProducto){
+        try{
+            this.conexion = new Conexion();
+            String sql = "SELECT COUNT(COD_PRO_CAR) FROM CARRITO WHERE COD_PRO_CAR = ? AND ID_PER_CAR = ?";
+            this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setInt(1,codigoProducto);
+            this.ps.setString(2,PantallaInicial.loggedClient.getCedula());
+            this.rs = ps.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 1){
+                PantallaInicial.loggedClient.setProductoCarrito(codigoProducto);
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 }

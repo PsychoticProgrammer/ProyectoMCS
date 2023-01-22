@@ -6,6 +6,7 @@ import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class PantallaInicial extends javax.swing.JFrame {
     
@@ -13,12 +14,14 @@ public class PantallaInicial extends javax.swing.JFrame {
     public boolean logged = false;
     int numeroFilas = 5;
     public static Cliente loggedClient;
+    public static JPanel panelProductos;
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
         this.jlblCarrito.setVisible(true);
         loggedClient = cliente;
         pantallaInicial = this;
+        panelProductos = this.jpnlProductos;
         GraphicsEnvironment env =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -41,16 +44,16 @@ public class PantallaInicial extends javax.swing.JFrame {
                 getScaledInstance(jlblCarrito.getWidth(),jlblCarrito.getHeight(), Image.SCALE_DEFAULT)));
         panels();
                 
-        this.repaint();        
+        this.repaint();  
     }
     
     public void panels(){
         for (int i = 0; i < 4; i++) {
             //EVENTUALMENTE REEMPLAZAR i POR EL CODIGO DEL PRODUCTO QUE RECIBE
-            jPanel4.add(new Product(i));           
+            jpnlProductos.add(new Product(i));           
         }
-        jPanel4.validate();
-        jPanel4.repaint();
+        jpnlProductos.validate();
+        jpnlProductos.repaint();
     }
     
     public void cambiarTextLogBtn(){
@@ -83,7 +86,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnLog = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
+        jpnlProductos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -254,9 +257,9 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(null);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new java.awt.GridLayout(numeroFilas, 3, 60, 60));
-        jScrollPane1.setViewportView(jPanel4);
+        jpnlProductos.setBackground(new java.awt.Color(255, 255, 255));
+        jpnlProductos.setLayout(new java.awt.GridLayout(numeroFilas, 3, 60, 60));
+        jScrollPane1.setViewportView(jpnlProductos);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(420, 230, 1490, 780);
@@ -349,9 +352,9 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlblCarrito;
+    private javax.swing.JPanel jpnlProductos;
     private javax.swing.JLabel logoPrin;
     // End of variables declaration//GEN-END:variables
 }

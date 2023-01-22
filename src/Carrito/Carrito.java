@@ -4,6 +4,7 @@ package Carrito;
 import BDD.CRUDCarrito;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import ventanas.PantallaInicial;
 
 public class Carrito extends javax.swing.JFrame {
@@ -25,10 +26,10 @@ public class Carrito extends javax.swing.JFrame {
         }
         this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
         for(int i = 0; i < productos.size(); i++){
-            this.jpnlProductos.add(new ItemCarrito(productos.get(i)));
+            this.jpnlProductos.add(new ItemCarrito(productos.get(i),this.jpnlProductos));
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
