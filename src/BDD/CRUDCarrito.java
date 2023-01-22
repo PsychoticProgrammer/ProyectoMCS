@@ -1,7 +1,6 @@
 
 package BDD;
 
-import Clases.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,15 +16,14 @@ public class CRUDCarrito {
         this.conexion = new Conexion();
     }
     
-    public void createProductoCarrito(int idProducto, int cantidad){
+    public void createProductoCarrito(int codigoProducto){
         try{
-            String sql = "INSERT INTO CARRITO(ID_USU_CAR, ID_PRO_CAR, CAN_PRO_CAR) VALUES(?,?,?)";
+            String sql = "INSERT INTO CARRITO(ID_PER_CAR, COD_PRO_CAR, CAN_PRO_CAR) VALUES(?,?,1)";
             this.ps = this.conexion.getConnection().prepareStatement(sql);
             this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
-            this.ps.setInt(2, idProducto);
-            this.ps.setInt(idProducto, cantidad);
-            
+            this.ps.setInt(2, codigoProducto);
             this.ps.executeUpdate();
+            this.alterarCantidadProductos(codigoProducto,1,'-');
         }catch(Exception e){
             System.out.println(e);
         }
@@ -34,7 +32,7 @@ public class CRUDCarrito {
     public ArrayList<String[]> readProductosCarrito(){
         try{
             String sql = "SELECT P.NOM_PRO, P.PRE_PRO, I.IMG1 FROM PRODUCTOS P, IMAGENES_PRODUCTO I "+
-                    "WHERE I.COD_PRO_PER = P.COD_PRO AND P.COD_PRO = (SELECT COD_PRO_CAR FROM CARRITO WHERE ID_PER_CAR = ?)";
+                    "WHERE I.COD_PRO_PER = P.COD_PRO AND P.COD_PRO IN (SELECT COD_PRO_CAR FROM CARRITO WHERE ID_PER_CAR = ?)";
             this.ps = this.conexion.getConnection().prepareStatement(sql);
             this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
             this.rs = this.ps.executeQuery();
@@ -50,6 +48,32 @@ public class CRUDCarrito {
         }catch(Exception e){
             System.out.println(e);
             return null;
+        }
+    }
+    
+    public void deleteProductosCarrito(int codigoProducto, int cantidad){
+        try{
+            String sql = "DELETE FROM CARRITO WHERE ID_PER_CAR= ? AND COD_PRO_CAR = ?";
+            this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
+            this.ps.setInt(2,codigoProducto);
+            this.ps.executeUpdate();
+            this.alterarCantidadProductos(codigoProducto,cantidad,'+');
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    private void alterarCantidadProductos(int codigoProducto, int cantidad, char operacion){
+        try{
+            String sql = "UPDATE PRODUCTOS SET UNI_DIS_PRO = UNI_DIS_PRO " + operacion + " ? " +
+                    "WHERE COD_PRO = ?";
+            this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setInt(1,cantidad);
+            this.ps.setInt(2,codigoProducto);
+            this.ps.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 }

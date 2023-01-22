@@ -4,7 +4,7 @@ package Clases;
 public class Cliente extends Usuario{
     
     //HASTA QUE NO SE IMPLEMENTE COMO CAMBIO EL MONEDERO, DEBE ESTAR COMENTADO LO QUE ESTA COMENTADO
-    
+
     //private float monedero;
     private String tarjetaCredito;
     

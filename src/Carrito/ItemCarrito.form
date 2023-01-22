@@ -25,8 +25,8 @@
               <Component id="jlblPrecio" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
               <Component id="jspnCantidad" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
-              <Component id="jbtnQuitarDelCarrito" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <Component id="jbtnComprar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -44,9 +44,9 @@
                   <Component id="jlblNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlblPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jspnCantidad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="jbtnQuitarDelCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtnComprar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="40" max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,10 +83,16 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnQuitarDelCarrito">
+    <Component class="javax.swing.JButton" name="jbtnComprar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Comprar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnComprarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
