@@ -1,10 +1,27 @@
 
 package Carrito;
 
+import BDD.CRUDCarrito;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import ventanas.PantallaInicial;
+
 public class Carrito extends javax.swing.JFrame {
 
+    private CRUDCarrito baseDatos;
+    
     public Carrito() {
         initComponents();
+        this.jbtnComprar.setVisible(false);
+        this.baseDatos = new CRUDCarrito();
+    }
+    
+    private void initPanelProductos(){
+        ArrayList<String[]> productos = this.baseDatos.readProductosCarrito();
+        this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
+        for(int i = 0; i < productos.size(); i++){
+            this.jpnlProductos.add(new ItemCarrito(productos.get(i)));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +42,11 @@ public class Carrito extends javax.swing.JFrame {
         jbtnComprar.setText("Comprar");
 
         jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlProductosLayout = new javax.swing.GroupLayout(jpnlProductos);
         jpnlProductos.setLayout(jpnlProductosLayout);
@@ -72,6 +94,10 @@ public class Carrito extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

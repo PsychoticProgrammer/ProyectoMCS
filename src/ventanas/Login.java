@@ -3,7 +3,7 @@ package ventanas;
 
 import BDD.*;
 import Soporte.Dialogs;
-import Usuario.Cliente;
+import Clases.Cliente;
 
 public class Login extends javax.swing.JFrame {
     

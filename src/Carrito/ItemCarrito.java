@@ -1,10 +1,17 @@
 
 package Carrito;
 
-public class ItemCarrito extends javax.swing.JPanel {
+import Clases.Producto;
 
-    public ItemCarrito() {
+public class ItemCarrito extends javax.swing.JPanel {
+    
+    public ItemCarrito(String[] datosProducto){
         initComponents();
+        this.jspnCantidad.setVisible(false);
+        this.jbtnQuitarDelCarrito.setText("Comprar");
+        this.jlblNombre.setText(datosProducto[1]);
+        this.jlblPrecio.setText(datosProducto[2]);
+        //this.jlblImagen.setIcon(Cambiar cuando haya fotos del producto);
     }
 
     @SuppressWarnings("unchecked")
@@ -13,7 +20,7 @@ public class ItemCarrito extends javax.swing.JPanel {
 
         jlblImagen = new javax.swing.JLabel();
         jlblNombre = new javax.swing.JLabel();
-        jlblDescripcion = new javax.swing.JLabel();
+        jlblPrecio = new javax.swing.JLabel();
         jspnCantidad = new javax.swing.JSpinner();
         jbtnQuitarDelCarrito = new javax.swing.JButton();
 
@@ -23,8 +30,8 @@ public class ItemCarrito extends javax.swing.JPanel {
         jlblNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jlblNombre.setText("jLabel1");
 
-        jlblDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jlblDescripcion.setText("jLabel1");
+        jlblPrecio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlblPrecio.setText("jLabel1");
 
         jspnCantidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -40,7 +47,7 @@ public class ItemCarrito extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jlblNombre)
                 .addGap(77, 77, 77)
-                .addComponent(jlblDescripcion)
+                .addComponent(jlblPrecio)
                 .addGap(62, 62, 62)
                 .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
@@ -57,7 +64,7 @@ public class ItemCarrito extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblNombre)
-                    .addComponent(jlblDescripcion)
+                    .addComponent(jlblPrecio)
                     .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnQuitarDelCarrito))
                 .addContainerGap(40, Short.MAX_VALUE))
@@ -67,9 +74,9 @@ public class ItemCarrito extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnQuitarDelCarrito;
-    private javax.swing.JLabel jlblDescripcion;
     private javax.swing.JLabel jlblImagen;
     private javax.swing.JLabel jlblNombre;
+    private javax.swing.JLabel jlblPrecio;
     private javax.swing.JSpinner jspnCantidad;
     // End of variables declaration//GEN-END:variables
 }

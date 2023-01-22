@@ -1,7 +1,7 @@
 
 package ventanas;
 
-import Usuario.Cliente;
+import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import javax.swing.ImageIcon;
