@@ -26,19 +26,119 @@ public class Pedidos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        imgPedido = new javax.swing.JLabel();
+        fechaLabel = new javax.swing.JLabel();
+        fechaText = new javax.swing.JLabel();
+        numPedidoLabel = new javax.swing.JLabel();
+        numPedidoText = new javax.swing.JLabel();
+        estadoLabel = new javax.swing.JLabel();
+        estadoText = new javax.swing.JLabel();
+        totalLabel = new javax.swing.JLabel();
+        totalText = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        imgPedido.setForeground(new java.awt.Color(204, 102, 255));
+
+        fechaLabel.setFont(new java.awt.Font("Cantarell", 1, 30)); // NOI18N
+        fechaLabel.setForeground(new java.awt.Color(0, 0, 0));
+        fechaLabel.setText("Fecha:");
+
+        fechaText.setFont(new java.awt.Font("Cantarell", 0, 30)); // NOI18N
+        fechaText.setForeground(new java.awt.Color(0, 0, 0));
+        fechaText.setText("23/01/2023");
+
+        numPedidoLabel.setFont(new java.awt.Font("Cantarell", 1, 30)); // NOI18N
+        numPedidoLabel.setForeground(new java.awt.Color(0, 0, 0));
+        numPedidoLabel.setText("N. Pedido:");
+
+        numPedidoText.setFont(new java.awt.Font("Cantarell", 0, 30)); // NOI18N
+        numPedidoText.setForeground(new java.awt.Color(0, 0, 0));
+        numPedidoText.setText("10");
+
+        estadoLabel.setFont(new java.awt.Font("Cantarell", 1, 30)); // NOI18N
+        estadoLabel.setForeground(new java.awt.Color(0, 0, 0));
+        estadoLabel.setText("Estado:");
+
+        estadoText.setFont(new java.awt.Font("Cantarell", 0, 30)); // NOI18N
+        estadoText.setForeground(new java.awt.Color(0, 0, 0));
+        estadoText.setText("Pagado");
+
+        totalLabel.setFont(new java.awt.Font("Cantarell", 1, 30)); // NOI18N
+        totalLabel.setForeground(new java.awt.Color(0, 0, 0));
+        totalLabel.setText("TOTAL:");
+
+        totalText.setFont(new java.awt.Font("Cantarell", 0, 30)); // NOI18N
+        totalText.setForeground(new java.awt.Color(0, 0, 0));
+        totalText.setText("$10");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1045, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(imgPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fechaLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(numPedidoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(numPedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addComponent(totalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(estadoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(imgPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(numPedidoLabel)
+                            .addComponent(numPedidoText))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fechaLabel)
+                            .addComponent(fechaText)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(totalLabel)
+                                .addComponent(totalText)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(estadoLabel)
+                            .addComponent(estadoText))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel estadoLabel;
+    private javax.swing.JLabel estadoText;
+    private javax.swing.JLabel fechaLabel;
+    private javax.swing.JLabel fechaText;
+    private javax.swing.JLabel imgPedido;
+    private javax.swing.JLabel numPedidoLabel;
+    private javax.swing.JLabel numPedidoText;
+    private javax.swing.JLabel totalLabel;
+    private javax.swing.JLabel totalText;
     // End of variables declaration//GEN-END:variables
 }
