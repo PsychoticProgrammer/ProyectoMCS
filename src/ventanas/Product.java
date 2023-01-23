@@ -22,7 +22,6 @@ public class Product extends javax.swing.JPanel {
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().
                 getScaledInstance(280,280, Image.SCALE_SMOOTH)));
         this.repaint();
-        this.productoEnCarrito();
     }
     
     public int getCodigoProducto(){
@@ -37,7 +36,7 @@ public class Product extends javax.swing.JPanel {
         return true;
     }
     
-    private void productoEnCarrito(){
+    public void productoEnCarrito(){
         if(this.baseDatos.estaEnCarrito(this.codigoProducto)){
             this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
             this.jtbtnCarrito.setSelected(true);
