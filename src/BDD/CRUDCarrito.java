@@ -54,7 +54,7 @@ public class CRUDCarrito {
         }
     }
     
-    /*public int readCantidadUnidades(int codigoProducto){
+    public int readCantidadUnidades(int codigoProducto){
         try{
             String sql = "SELECT CAN_PRO_CAR FROM CARRITO WHERE ID_PER_CAR = ? AND COD_PRO_CAR = ?";
             this.ps = this.conexion.getConnection().prepareStatement(sql);
@@ -81,7 +81,7 @@ public class CRUDCarrito {
         }catch(Exception e){
             System.out.println(e);
         }
-    }*/
+    }
     
     public void deleteProductosCarrito(int codigoProducto, int cantidad){
         try{
