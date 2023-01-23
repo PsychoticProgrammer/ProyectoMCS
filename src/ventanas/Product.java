@@ -44,8 +44,8 @@ public class Product extends javax.swing.JPanel {
     }
     
     public void productoRetiradoCarrito(){
-        this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
-        this.jtbtnCarrito.setSelected(true);
+        this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
+        this.jtbtnCarrito.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")

@@ -19,14 +19,16 @@ public class Carrito extends javax.swing.JFrame {
         this.initPanelProductos();
     }
     
-    private void initPanelProductos(){
+    public void initPanelProductos(){
+        this.jpnlProductos.removeAll();
+        this.jpnlProductos.updateUI();
         ArrayList<String[]> productos = this.baseDatos.readProductosCarrito();
         if(productos == null){
             return;
         }
         this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
         for(int i = 0; i < productos.size(); i++){
-            this.jpnlProductos.add(new ItemCarrito(productos.get(i),this.jpnlProductos));
+            this.jpnlProductos.add(new ItemCarrito(productos.get(i),this));
         }
     }
     

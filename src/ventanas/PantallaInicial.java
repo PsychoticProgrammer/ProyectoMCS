@@ -50,7 +50,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     public void panels(){
         for (int i = 0; i < 4; i++) {
             //EVENTUALMENTE REEMPLAZAR i POR EL CODIGO DEL PRODUCTO QUE RECIBE
-            jpnlProductos.add(new Product(i));           
+            jpnlProductos.add(new Product(i+1));           
         }
         jpnlProductos.validate();
         jpnlProductos.repaint();

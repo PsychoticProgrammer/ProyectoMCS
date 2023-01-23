@@ -11,13 +11,12 @@ public class ItemCarrito extends javax.swing.JPanel {
     
     private CRUDCarrito baseDatos;
     private int codigoProducto;
-    private JPanel padre;
+    private Carrito padre;
     
-    public ItemCarrito(String[] datosProducto, JPanel padre){
+    public ItemCarrito(String[] datosProducto, Carrito padre){
         initComponents();
         this.baseDatos = new CRUDCarrito();
         this.jspnCantidad.setVisible(false);
-        this.jbtnEliminar.setText("Comprar");
         this.codigoProducto = Integer.parseInt(datosProducto[0]);
         this.jlblNombre.setText(datosProducto[1]);
         this.jlblPrecio.setText(datosProducto[2]);
@@ -98,15 +97,16 @@ public class ItemCarrito extends javax.swing.JPanel {
             return;
         }
         Dialogs.informationDialog("Compra realizada");*/
-        PantallaInicial.loggedClient.getCarrito().remove(this.codigoProducto);
+        PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
         this.baseDatos.deleteProductosCarrito(this.codigoProducto,1);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             if(p.getCodigoProducto() == this.codigoProducto){
                 p.productoRetiradoCarrito();
+                this.padre.initPanelProductos();
+                return;
             }
         }
-        this.setVisible(false);
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
 
