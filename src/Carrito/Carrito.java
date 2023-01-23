@@ -2,9 +2,9 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
+import Soporte.Dialogs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.JPanel;
 import ventanas.PantallaInicial;
 
 public class Carrito extends javax.swing.JFrame {
@@ -13,8 +13,8 @@ public class Carrito extends javax.swing.JFrame {
     
     public Carrito() {
         initComponents();
-        this.jbtnComprar.setVisible(false);
         this.setLocationRelativeTo(null);
+        this.jbtnComprar.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.initPanelProductos();
     }
@@ -26,9 +26,16 @@ public class Carrito extends javax.swing.JFrame {
         if(productos == null){
             return;
         }
+        this.jbtnComprar.setVisible(true);
         this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
         for(int i = 0; i < productos.size(); i++){
             this.jpnlProductos.add(new ItemCarrito(productos.get(i),this));
+        }
+    }
+    
+    private void comprarProductos(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
         }
     }
     
@@ -48,6 +55,11 @@ public class Carrito extends javax.swing.JFrame {
         jLabel1.setText("Carrito");
 
         jbtnComprar.setText("Comprar");
+        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnComprarActionPerformed(evt);
+            }
+        });
 
         jbtnAtras.setText("Atras");
         jbtnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +118,23 @@ public class Carrito extends javax.swing.JFrame {
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
+
+    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
+        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
+            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
+            return;
+        }
+        if(PantallaInicial.loggedClient.getDireccion().equals("")){
+            Dialogs.warningMessageDialog("Debe proporcionar una Dirección de Envío");
+            return;
+        }
+        this.comprarProductos();
+        this.jpnlProductos.removeAll();
+        this.jpnlProductos.updateUI();
+        PantallaInicial.loggedClient.getCarrito().removeAll(PantallaInicial.loggedClient.getCarrito());
+        this.jbtnComprar.setVisible(false);
+        Dialogs.informationDialog("Compra Realizada");
+    }//GEN-LAST:event_jbtnComprarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

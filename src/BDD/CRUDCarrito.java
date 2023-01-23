@@ -65,6 +65,18 @@ public class CRUDCarrito {
         }
     }
     
+    public void comprarProductosCarrito(int codigoProducto, int cantidad){
+        try{
+            String sql = "DELETE FROM CARRITO WHERE ID_PER_CAR= ? AND COD_PRO_CAR = ?";
+            this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
+            this.ps.setInt(2,codigoProducto);
+            this.ps.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
     public void alterarCantidadProductos(int codigoProducto, int cantidad, char operacion){
         try{
             String sql = "UPDATE PRODUCTOS SET UNI_DIS_PRO = UNI_DIS_PRO " + operacion + " ? " +
