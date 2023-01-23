@@ -42,7 +42,7 @@ public class ItemCarrito extends javax.swing.JPanel {
             }
         }
     }
-    /*
+    
     public void reservarProducto(){
         int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
         if(cantidad > this.unidades){
@@ -50,7 +50,7 @@ public class ItemCarrito extends javax.swing.JPanel {
         }else if(cantidad < this.unidades){
             this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,this.unidades-cantidad,'+');
         }
-    }*/
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

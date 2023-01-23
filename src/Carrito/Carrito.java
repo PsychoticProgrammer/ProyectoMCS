@@ -38,12 +38,12 @@ public class Carrito extends javax.swing.JFrame {
             ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
         }
     }
-    /*
+    
     private void reservarProductos(){
         for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
             ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
         }
-    }*/
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -124,7 +124,7 @@ public class Carrito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
-        //this.reservarProductos();
+        this.reservarProductos();
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
