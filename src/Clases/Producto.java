@@ -3,7 +3,7 @@ package Clases;
 
 public class Producto {
     
-    private int codigo, unidadesDisponibles, indicePanelPadre;
+    private int codigo, unidadesDisponibles;
     private float precio;
     private String nombre, descripcion, imagen1, imagen2, imagen3;
     
@@ -38,10 +38,6 @@ public class Producto {
     public String getDescripcion() {
         return this.descripcion;
     }
-    
-    public int getIndicePanelPadre(){
-        return this.indicePanelPadre;
-    }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
@@ -61,9 +57,5 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-    
-    public void setIndicePanelPadre(int nuevoValor){
-        this.indicePanelPadre = nuevoValor;
     }
 }
