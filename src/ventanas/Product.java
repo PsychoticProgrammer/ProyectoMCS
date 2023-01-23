@@ -128,11 +128,11 @@ public class Product extends javax.swing.JPanel {
             this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
             return;
         } else if(!this.jtbtnCarrito.isSelected() && this.validatePurchase()){
-           /* int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
             if(unidades == -1){
                 return;
             }
-            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);*/
+            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
             this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
             return;
         }
