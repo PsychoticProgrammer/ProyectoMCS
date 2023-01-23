@@ -10,7 +10,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public static PantallaInicial pantallaInicial;
     public boolean logged = false;
-    int numeroFilas = 5;
+    int numeroFilas = 5; //Se obtendrá: (total de productos a mostrar) dividido para 3
     public static Cliente loggedClient;
     
     public PantallaInicial(Cliente cliente) {
@@ -114,7 +114,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(0, 51, 204));
         jButton2.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Opción 2");
+        jButton2.setText("Pedidos");
         jButton2.setBorder(null);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +230,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.setFont(new java.awt.Font("Cantarell", 1, 22)); // NOI18N
-        btnLog.setForeground(new java.awt.Color(0, 0, 0));
         btnLog.setText("Log in");
         btnLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLog.addActionListener(new java.awt.event.ActionListener() {
@@ -239,10 +238,9 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLog);
-        btnLog.setBounds(1780, 100, 120, 36);
+        btnLog.setBounds(1780, 100, 120, 33);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("¡Productos para todos!");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(810, 120, 690, 80);
