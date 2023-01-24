@@ -16,12 +16,16 @@ public class Pedidos extends javax.swing.JPanel {
     /**
      * Creates new form Pedidos
      */
-    public Pedidos() {
+    public Pedidos(String numPedido, String fecha, String estado, String producto, String total) {
         initComponents();
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
-        
+        this.numPedidoText.setText(numPedido);
+        this.fechaText.setText(fecha);
+        this.estadoText.setText(estado);
+        this.detalleText.setText(producto);
+        this.totalText.setText(total);
     }
 
     /**
