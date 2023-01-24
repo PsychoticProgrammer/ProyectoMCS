@@ -17,7 +17,7 @@ public class CRUDUsuario {
     public boolean createUsuario(String cedula, String nombre, String apellido, String direccion,
             String telefono, String correo, String password){
         try{
-            this.ps = this.conexion.getConnection().prepareStatement("INSERT INTO catalogo.PERSONAS (ID_PER,NOM_PER,APE_PER,"+
+            this.ps = this.conexion.getConnection().prepareStatement("INSERT INTO PERSONAS (ID_PER,NOM_PER,APE_PER,"+
                     "DIR_PER,TEL_PER,COR_PER,CONTR_PER,PERFIL) VALUES(?,?,?,?,?,?,?,'C');");
             this.ps.setString(1,cedula);
             this.ps.setString(2,nombre);

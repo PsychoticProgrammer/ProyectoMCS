@@ -225,7 +225,7 @@ public class RegistroForm extends javax.swing.JFrame {
         ingTelefono.setText(null);
         ingEmail.setText(null);
         ingPass.setText(null);
-        if(dm.createUsuario(ced,nombre, apellido, dir, tel, pass, email)){
+        if(dm.createUsuario(ced,nombre, apellido, dir, tel, email, pass)){
             JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente");
