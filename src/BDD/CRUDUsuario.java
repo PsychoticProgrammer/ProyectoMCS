@@ -3,11 +3,10 @@ package BDD;
 
 import Usuario.Cliente;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class CRUDUsuario {
     
-    private Conexion conexion;
+    private final Conexion conexion;
     private PreparedStatement ps;
     private ResultSet rs;
     
@@ -15,10 +14,10 @@ public class CRUDUsuario {
         this.conexion = new Conexion();
     }
     
-    public void createUsuario(String cedula, String nombre, String apellido, String direccion,
+    public boolean createUsuario(String cedula, String nombre, String apellido, String direccion,
             String telefono, String correo, String password){
         try{
-            this.ps = this.conexion.getConnection().prepareStatement("INSERT INTO PERSONAS (ID_PER,NOM_PER,APE_PER,"+
+            this.ps = this.conexion.getConnection().prepareStatement("INSERT INTO catalogo.PERSONAS (ID_PER,NOM_PER,APE_PER,"+
                     "DIR_PER,TEL_PER,COR_PER,CONTR_PER,PERFIL) VALUES(?,?,?,?,?,?,?,'C');");
             this.ps.setString(1,cedula);
             this.ps.setString(2,nombre);
@@ -29,8 +28,10 @@ public class CRUDUsuario {
             this.ps.setString(7,password);
             
             this.ps.executeUpdate();
+            return true;
         }catch(SQLException e){
             System.out.println(e);
+            return false;
         }
     }
     
