@@ -21,6 +21,7 @@ public class Pedidos extends javax.swing.JPanel {
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
+        
     }
 
     /**
@@ -42,7 +43,7 @@ public class Pedidos extends javax.swing.JPanel {
         totalLabel = new javax.swing.JLabel();
         totalText = new javax.swing.JLabel();
         detalleLabel = new javax.swing.JLabel();
-        estadoText1 = new javax.swing.JLabel();
+        detalleText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -85,10 +86,10 @@ public class Pedidos extends javax.swing.JPanel {
         detalleLabel.setForeground(new java.awt.Color(0, 0, 0));
         detalleLabel.setText("Detalle:");
 
-        estadoText1.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
-        estadoText1.setForeground(new java.awt.Color(0, 0, 0));
-        estadoText1.setText("<html><body>- Producto 1 <br>- Producto 2<br> - Producto 3 </body></html>");
-        estadoText1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        detalleText.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        detalleText.setForeground(new java.awt.Color(0, 0, 0));
+        detalleText.setText("<html><body>- Producto 1 <br>- Producto 2<br> - Producto 3 </body></html>");
+        detalleText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,7 +119,7 @@ public class Pedidos extends javax.swing.JPanel {
                         .addGap(452, 452, 452))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(estadoText1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(detalleText, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -135,7 +136,7 @@ public class Pedidos extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(detalleLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(estadoText1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(detalleText, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(45, 45, 45)
@@ -164,9 +165,9 @@ public class Pedidos extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel detalleLabel;
+    private javax.swing.JLabel detalleText;
     private javax.swing.JLabel estadoLabel;
     private javax.swing.JLabel estadoText;
-    private javax.swing.JLabel estadoText1;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel fechaText;
     private javax.swing.JLabel imgPedido;

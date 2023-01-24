@@ -1,10 +1,14 @@
 
 package ventanas;
 
+import BDD.CRUDPedidos;
+import Soporte.Dialogs;
 import Usuario.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class PantallaInicial extends javax.swing.JFrame {
     
@@ -273,14 +277,27 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
         if(logged){
-            this.numeroFilas = 3; //Número de pedidos
+            CRUDPedidos cp = new CRUDPedidos();
+            this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
             jPanel4.removeAll();
-            for (int i = 0; i < 3; i++) {
-                jPanel4.add(new Pedidos());           
-            }
+            if(this.numeroFilas != 0){
+                ArrayList<String[]> detallesPedidos = cp.detallesPedidos(PantallaInicial.loggedClient.getCedula());
+                for (int i = 0; i < detallesPedidos.size(); i++) {                    
+                    jPanel4.add(new Pedidos(detallesPedidos.get(i)[0],
+                                            detallesPedidos.get(i)[1],
+                                            detallesPedidos.get(i)[2],
+                                            detallesPedidos.get(i)[3],
+                                            detallesPedidos.get(i)[4]));
+                }
+            }else{
+                jLabel4.add(new JLabel("Por ahora, no existen pedidos."));
+            }                
             jPanel4.revalidate();
             jPanel4.repaint();
-            this.repaint();
+            this.repaint();                
+        }else{
+            Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
+            return;
         }
     }//GEN-LAST:event_btnPedidosActionPerformed
 
