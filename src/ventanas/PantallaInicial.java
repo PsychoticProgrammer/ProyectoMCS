@@ -1,16 +1,20 @@
 
 package ventanas;
 
+import BDD.CRUDPedidos;
+import Soporte.Dialogs;
 import Usuario.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class PantallaInicial extends javax.swing.JFrame {
     
     public static PantallaInicial pantallaInicial;
     public boolean logged = false;
-    int numeroFilas = 5;
+    int numeroFilas = 5; //Se obtendrá: (total de productos a mostrar) dividido para 3
     public static Cliente loggedClient;
     
     public PantallaInicial(Cliente cliente) {
@@ -71,7 +75,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPedidos = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -111,15 +115,15 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 204));
-        jButton2.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Opción 2");
-        jButton2.setBorder(null);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPedidos.setBackground(new java.awt.Color(0, 51, 204));
+        btnPedidos.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
+        btnPedidos.setForeground(new java.awt.Color(255, 255, 255));
+        btnPedidos.setText("Pedidos");
+        btnPedidos.setBorder(null);
+        btnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPedidosActionPerformed(evt);
             }
         });
 
@@ -144,7 +148,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -169,7 +173,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)
@@ -230,7 +234,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.setFont(new java.awt.Font("Cantarell", 1, 22)); // NOI18N
-        btnLog.setForeground(new java.awt.Color(0, 0, 0));
         btnLog.setText("Log in");
         btnLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLog.addActionListener(new java.awt.event.ActionListener() {
@@ -239,10 +242,9 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLog);
-        btnLog.setBounds(1780, 100, 120, 36);
+        btnLog.setBounds(1780, 100, 120, 33);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("¡Productos para todos!");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(810, 120, 690, 80);
@@ -273,9 +275,31 @@ public class PantallaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+        if(logged){
+            CRUDPedidos cp = new CRUDPedidos();
+            this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
+            jPanel4.removeAll();
+            if(this.numeroFilas != 0){
+                ArrayList<String[]> detallesPedidos = cp.detallesPedidos(PantallaInicial.loggedClient.getCedula());
+                for (int i = 0; i < detallesPedidos.size(); i++) {                    
+                    jPanel4.add(new Pedidos(detallesPedidos.get(i)[0],
+                                            detallesPedidos.get(i)[1],
+                                            detallesPedidos.get(i)[2],
+                                            detallesPedidos.get(i)[3],
+                                            detallesPedidos.get(i)[4]));
+                }
+            }else{
+                jLabel4.add(new JLabel("Por ahora, no existen pedidos."));
+            }                
+            jPanel4.revalidate();
+            jPanel4.repaint();
+            this.repaint();                
+        }else{
+            Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
+            return;
+        }
+    }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -328,9 +352,9 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLog;
+    private javax.swing.JButton btnPedidos;
     private javax.swing.JLabel imgLog;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
