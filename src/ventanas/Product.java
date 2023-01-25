@@ -1,30 +1,51 @@
 
 package ventanas;
 
+import BDD.CRUDCarrito;
+import BDD.Conexion;
 import Soporte.Dialogs;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Product extends javax.swing.JPanel {
 
-    public Product() {
+    private CRUDCarrito baseDatos;
+    private int codigoProducto;
+    
+    public Product(int codigoProducto) {
         initComponents();
+        this.codigoProducto = codigoProducto;
+        this.baseDatos = new CRUDCarrito();
         ImageIcon imagenPro= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().
                 getScaledInstance(280,280, Image.SCALE_SMOOTH)));
         this.repaint();
     }
     
-    private void validatePurchase(){
+    public int getCodigoProducto(){
+        return this.codigoProducto;
+    }
+    
+    private boolean validatePurchase(){
         if(PantallaInicial.loggedClient == null){
             Dialogs.informationDialog("Debe Iniciar Sesión para realizar una Compra");
-            return;
+            return false;
         }
-        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
-            return;
+        return true;
+    }
+    
+    public void productoEnCarrito(){
+        if(this.baseDatos.estaEnCarrito(this.codigoProducto)){
+            this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
+            this.jtbtnCarrito.setSelected(true);
         }
-        Dialogs.informationDialog("Compra Realizada");
+    }
+    
+    public void productoRetiradoCarrito(){
+        this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
+        this.jtbtnCarrito.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -35,13 +56,12 @@ public class Product extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbtnComprar = new javax.swing.JButton();
+        jtbtnCarrito = new javax.swing.JToggleButton();
 
         setBackground(new java.awt.Color(252, 247, 247));
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre Producto ");
 
         jLabel2.setFont(new java.awt.Font("Comfortaa", 1, 28)); // NOI18N
@@ -49,17 +69,14 @@ public class Product extends javax.swing.JPanel {
         jLabel2.setText("$10.00");
 
         jLabel3.setFont(new java.awt.Font("Cantarell Light", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Disponibles: 8");
 
-        jbtnComprar.setBackground(new java.awt.Color(204, 204, 0));
-        jbtnComprar.setFont(new java.awt.Font("Cantarell", 1, 20)); // NOI18N
-        jbtnComprar.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnComprar.setText("Comprar");
-        jbtnComprar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+        jtbtnCarrito.setBackground(new java.awt.Color(204, 204, 0));
+        jtbtnCarrito.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
+        jtbtnCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnComprarActionPerformed(evt);
+                jtbtnCarritoActionPerformed(evt);
             }
         });
 
@@ -72,16 +89,19 @@ public class Product extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnComprar))))
+                                .addComponent(jtbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(10, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(imagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
         );
@@ -94,17 +114,30 @@ public class Product extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jbtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jtbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
-        this.validatePurchase();
-    }//GEN-LAST:event_jbtnComprarActionPerformed
+    private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
+        if(this.jtbtnCarrito.isSelected()&& this.validatePurchase()){
+            this.baseDatos.createProductoCarrito(this.codigoProducto);
+            this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
+            return;
+        } else if(!this.jtbtnCarrito.isSelected() && this.validatePurchase()){
+           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+            if(unidades == -1){
+                return;
+            }
+            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+            this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
+            return;
+        }
+        this.jtbtnCarrito.setSelected(false);
+    }//GEN-LAST:event_jtbtnCarritoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -112,6 +145,6 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton jbtnComprar;
+    private javax.swing.JToggleButton jtbtnCarrito;
     // End of variables declaration//GEN-END:variables
 }
