@@ -8,18 +8,23 @@ import ventanas.Product;
 public class ItemCarrito extends javax.swing.JPanel {
     
     private CRUDCarrito baseDatos;
-    private int codigoProducto;
+    private int codigoProducto, unidades;
     private Carrito padre;
     
     public ItemCarrito(String[] datosProducto, Carrito padre){
         initComponents();
         this.baseDatos = new CRUDCarrito();
-        this.jspnCantidad.setVisible(false);
         this.codigoProducto = Integer.parseInt(datosProducto[0]);
         this.jlblNombre.setText(datosProducto[1]);
         this.jlblPrecio.setText(datosProducto[2]);
+        this.unidades = Integer.parseInt(datosProducto[3]);
+        this.jspnCantidad.setValue(this.unidades);
         //this.jlblImagen.setIcon(Cambiar cuando haya fotos del producto);
         this.padre = padre;
+    }
+    
+    private void initSpinner(){
+        this.jspnCantidad.setValue(1);
     }
     
     public int getCodigoProducto(){
@@ -27,13 +32,23 @@ public class ItemCarrito extends javax.swing.JPanel {
     }
     
     public void comprarProducto(){
-        this.baseDatos.comprarProductosCarrito(this.codigoProducto,1);
+        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
+        this.baseDatos.comprarProductosCarrito(this.codigoProducto,cantidad-1);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             if(p.getCodigoProducto() == this.codigoProducto){
                 p.productoRetiradoCarrito();
                 return;
             }
+        }
+    }
+    
+    public void reservarProducto(){
+        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
+        if(cantidad > this.unidades){
+            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,cantidad-this.unidades,'-');
+        }else if(cantidad < this.unidades){
+            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,this.unidades-cantidad,'+');
         }
     }
     
@@ -77,9 +92,9 @@ public class ItemCarrito extends javax.swing.JPanel {
                 .addComponent(jlblNombre)
                 .addGap(77, 77, 77)
                 .addComponent(jlblPrecio)
-                .addGap(62, 62, 62)
-                .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jbtnEliminar)
                 .addGap(34, 34, 34))
         );
@@ -102,7 +117,7 @@ public class ItemCarrito extends javax.swing.JPanel {
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
         PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
-        this.baseDatos.deleteProductosCarrito(this.codigoProducto,1);
+        this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             if(p.getCodigoProducto() == this.codigoProducto){

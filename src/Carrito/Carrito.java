@@ -39,6 +39,12 @@ public class Carrito extends javax.swing.JFrame {
         }
     }
     
+    private void reservarProductos(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,6 +60,7 @@ public class Carrito extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Carrito");
 
+        jbtnComprar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbtnComprar.setText("Comprar");
         jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,6 +68,7 @@ public class Carrito extends javax.swing.JFrame {
             }
         });
 
+        jbtnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbtnAtras.setText("Atras");
         jbtnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +116,7 @@ public class Carrito extends javax.swing.JFrame {
                     .addComponent(jbtnComprar)
                     .addComponent(jbtnAtras))
                 .addGap(18, 18, 18)
-                .addComponent(jscpProductos)
+                .addComponent(jscpProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -116,6 +124,7 @@ public class Carrito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
+        this.reservarProductos();
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
