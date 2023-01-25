@@ -11,6 +11,7 @@ public class RegistroForm extends javax.swing.JFrame {
     
     public RegistroForm() {
         initComponents();
+        this.setResizable(false);
         setLocationRelativeTo(null);
     }
 

@@ -14,6 +14,8 @@ public class ModificarUser extends javax.swing.JFrame {
     
     public ModificarUser() {
         initComponents();
+        this.setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -45,11 +47,13 @@ public class ModificarUser extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         ingPass = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
-        btnRegistro = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(562, 803));
+        setTitle("Cambiar Datos");
+        setPreferredSize(new java.awt.Dimension(562, 810));
+        setSize(new java.awt.Dimension(562, 810));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -150,14 +154,14 @@ public class ModificarUser extends javax.swing.JFrame {
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 540, 240, 10));
 
-        btnRegistro.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        btnRegistro.setText("REGISTRARSE");
-        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
+        btnChgDatos.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        btnChgDatos.setText("MODIFICAR");
+        btnChgDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroActionPerformed(evt);
+                btnChgDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, -1, 40));
+        jPanel1.add(btnChgDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 620, -1, 40));
 
         btnBack.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/previous.png"))); // NOI18N
@@ -167,7 +171,7 @@ public class ModificarUser extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 740, -1, -1));
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 710, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,14 +186,14 @@ public class ModificarUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+    private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         CRUDUsuario dm = new CRUDUsuario();
         String nombre=ingNombre.getText().toUpperCase();
         String apellido=ingApellido.getText().toUpperCase();
@@ -208,7 +212,7 @@ public class ModificarUser extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Los datos no se han modificado");
         }
-    }//GEN-LAST:event_btnRegistroActionPerformed
+    }//GEN-LAST:event_btnChgDatosActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         
@@ -252,7 +256,7 @@ public class ModificarUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnRegistro;
+    private javax.swing.JButton btnChgDatos;
     private javax.swing.JTextField ingApellido;
     private javax.swing.JTextField ingDireccion;
     private javax.swing.JTextField ingEmail;
