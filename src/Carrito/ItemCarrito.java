@@ -2,23 +2,56 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
-import Soporte.Dialogs;
 import ventanas.PantallaInicial;
+import ventanas.Product;
 
 public class ItemCarrito extends javax.swing.JPanel {
     
     private CRUDCarrito baseDatos;
+    private int codigoProducto, unidades;
+    private Carrito padre;
     
-    public ItemCarrito(String[] datosProducto){
+    public ItemCarrito(String[] datosProducto, Carrito padre){
         initComponents();
         this.baseDatos = new CRUDCarrito();
-        this.jspnCantidad.setVisible(false);
-        this.jbtnComprar.setText("Comprar");
-        this.jlblNombre.setText(datosProducto[0]);
-        this.jlblPrecio.setText(datosProducto[1]);
+        this.codigoProducto = Integer.parseInt(datosProducto[0]);
+        this.jlblNombre.setText(datosProducto[1]);
+        this.jlblPrecio.setText(datosProducto[2]);
+        this.unidades = Integer.parseInt(datosProducto[3]);
+        this.jspnCantidad.setValue(this.unidades);
         //this.jlblImagen.setIcon(Cambiar cuando haya fotos del producto);
+        this.padre = padre;
     }
-
+    
+    private void initSpinner(){
+        this.jspnCantidad.setValue(1);
+    }
+    
+    public int getCodigoProducto(){
+        return this.codigoProducto;
+    }
+    
+    public void comprarProducto(){
+        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
+        this.baseDatos.comprarProductosCarrito(this.codigoProducto,cantidad-1);
+        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
+            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
+            if(p.getCodigoProducto() == this.codigoProducto){
+                p.productoRetiradoCarrito();
+                return;
+            }
+        }
+    }
+    
+    public void reservarProducto(){
+        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
+        if(cantidad > this.unidades){
+            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,cantidad-this.unidades,'-');
+        }else if(cantidad < this.unidades){
+            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,this.unidades-cantidad,'+');
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,7 +60,7 @@ public class ItemCarrito extends javax.swing.JPanel {
         jlblNombre = new javax.swing.JLabel();
         jlblPrecio = new javax.swing.JLabel();
         jspnCantidad = new javax.swing.JSpinner();
-        jbtnComprar = new javax.swing.JButton();
+        jbtnEliminar = new javax.swing.JButton();
 
         jlblImagen.setBackground(new java.awt.Color(210, 242, 242));
         jlblImagen.setOpaque(true);
@@ -40,11 +73,11 @@ public class ItemCarrito extends javax.swing.JPanel {
 
         jspnCantidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jbtnComprar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbtnComprar.setText("Comprar");
-        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+        jbtnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jbtnEliminar.setText("Eliminar");
+        jbtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnComprarActionPerformed(evt);
+                jbtnEliminarActionPerformed(evt);
             }
         });
 
@@ -59,10 +92,10 @@ public class ItemCarrito extends javax.swing.JPanel {
                 .addComponent(jlblNombre)
                 .addGap(77, 77, 77)
                 .addComponent(jlblPrecio)
-                .addGap(62, 62, 62)
-                .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jbtnComprar)
+                .addGap(28, 28, 28)
+                .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jbtnEliminar)
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -77,26 +110,27 @@ public class ItemCarrito extends javax.swing.JPanel {
                     .addComponent(jlblNombre)
                     .addComponent(jlblPrecio)
                     .addComponent(jspnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnComprar))
+                    .addComponent(jbtnEliminar))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
-        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
-            return;
+    private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
+        PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
+        this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
+        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
+            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
+            if(p.getCodigoProducto() == this.codigoProducto){
+                p.productoRetiradoCarrito();
+                this.padre.initPanelProductos();
+                return;
+            }
         }
-        if(PantallaInicial.loggedClient.getDireccion().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar una Dirección de Envío");
-            return;
-        }
-        Dialogs.informationDialog("Compra realizada");
-    }//GEN-LAST:event_jbtnComprarActionPerformed
+    }//GEN-LAST:event_jbtnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtnComprar;
+    private javax.swing.JButton jbtnEliminar;
     private javax.swing.JLabel jlblImagen;
     private javax.swing.JLabel jlblNombre;
     private javax.swing.JLabel jlblPrecio;

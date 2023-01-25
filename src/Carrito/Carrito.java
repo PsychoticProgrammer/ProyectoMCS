@@ -2,6 +2,7 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
+import Soporte.Dialogs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import ventanas.PantallaInicial;
@@ -12,23 +13,38 @@ public class Carrito extends javax.swing.JFrame {
     
     public Carrito() {
         initComponents();
-        this.jbtnComprar.setVisible(false);
         this.setLocationRelativeTo(null);
+        this.jbtnComprar.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.initPanelProductos();
     }
     
-    private void initPanelProductos(){
+    public void initPanelProductos(){
+        this.jpnlProductos.removeAll();
+        this.jpnlProductos.updateUI();
         ArrayList<String[]> productos = this.baseDatos.readProductosCarrito();
         if(productos == null){
             return;
         }
+        this.jbtnComprar.setVisible(true);
         this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
         for(int i = 0; i < productos.size(); i++){
-            this.jpnlProductos.add(new ItemCarrito(productos.get(i)));
+            this.jpnlProductos.add(new ItemCarrito(productos.get(i),this));
         }
     }
-
+    
+    private void comprarProductos(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
+        }
+    }
+    
+    private void reservarProductos(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,8 +60,15 @@ public class Carrito extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Carrito");
 
+        jbtnComprar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbtnComprar.setText("Comprar");
+        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnComprarActionPerformed(evt);
+            }
+        });
 
+        jbtnAtras.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbtnAtras.setText("Atras");
         jbtnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +116,7 @@ public class Carrito extends javax.swing.JFrame {
                     .addComponent(jbtnComprar)
                     .addComponent(jbtnAtras))
                 .addGap(18, 18, 18)
-                .addComponent(jscpProductos)
+                .addComponent(jscpProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -101,8 +124,26 @@ public class Carrito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
+        this.reservarProductos();
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
+
+    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
+        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
+            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
+            return;
+        }
+        if(PantallaInicial.loggedClient.getDireccion().equals("")){
+            Dialogs.warningMessageDialog("Debe proporcionar una Dirección de Envío");
+            return;
+        }
+        this.comprarProductos();
+        this.jpnlProductos.removeAll();
+        this.jpnlProductos.updateUI();
+        PantallaInicial.loggedClient.getCarrito().removeAll(PantallaInicial.loggedClient.getCarrito());
+        this.jbtnComprar.setVisible(false);
+        Dialogs.informationDialog("Compra Realizada");
+    }//GEN-LAST:event_jbtnComprarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

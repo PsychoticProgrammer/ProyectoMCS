@@ -22,7 +22,10 @@ public class Product extends javax.swing.JPanel {
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().
                 getScaledInstance(280,280, Image.SCALE_SMOOTH)));
         this.repaint();
-        this.estaEnCarrito();
+    }
+    
+    public int getCodigoProducto(){
+        return this.codigoProducto;
     }
     
     private boolean validatePurchase(){
@@ -33,24 +36,16 @@ public class Product extends javax.swing.JPanel {
         return true;
     }
     
-    private void estaEnCarrito(){
-        try{
-            Conexion con = new Conexion();
-            String sql = "SELECT COD_PRO_CAR FROM CARRITO WHERE ID_PER_CAR = ?";
-            PreparedStatement ps = con.getConnection().prepareStatement(sql);
-            ps.setString(1,PantallaInicial.loggedClient.getCedula());
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(this.codigoProducto == rs.getInt(1)){
-                    this.jtbtnCarrito.setText("Quitar del Carrito");
-                    this.jtbtnCarrito.setSelected(true);
-                    return;
-                }
-            }
-            return;
-        }catch(Exception e){
-            System.out.println(e);
+    public void productoEnCarrito(){
+        if(this.baseDatos.estaEnCarrito(this.codigoProducto)){
+            this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
+            this.jtbtnCarrito.setSelected(true);
         }
+    }
+    
+    public void productoRetiradoCarrito(){
+        this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
+        this.jtbtnCarrito.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -130,11 +125,15 @@ public class Product extends javax.swing.JPanel {
     private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
         if(this.jtbtnCarrito.isSelected()&& this.validatePurchase()){
             this.baseDatos.createProductoCarrito(this.codigoProducto);
-            this.jtbtnCarrito.setText("Quitar del Carrito");
+            this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
             return;
         } else if(!this.jtbtnCarrito.isSelected() && this.validatePurchase()){
-            this.baseDatos.deleteProductosCarrito(this.codigoProducto,1);
-            this.jtbtnCarrito.setText("Agregar al Carrito");
+           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+            if(unidades == -1){
+                return;
+            }
+            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+            this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
             return;
         }
         this.jtbtnCarrito.setSelected(false);
