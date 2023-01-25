@@ -54,4 +54,19 @@ public class CRUDUsuario {
             return null;
         }
     }
+    
+    public boolean updateUsuario(String cedula, String nombre, String apellido, String direccion,
+            String telefono, String correo, String password){
+        try{
+            this.ps = this.conexion.getConnection().prepareStatement("UPDATE PERSONAS SET"
+                    + ",NOM_PER='"+nombre+"',APE_PER='"+apellido+"',DIR_PER,TEL_PER='"+telefono+"',"
+                    + "COR_PER='"+correo+"',CONTR_PER='"+password+"' WHERE ID_PER='"+cedula+"'");
+            
+            this.ps.executeUpdate();
+            return true;
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+        }
+    }
 }
