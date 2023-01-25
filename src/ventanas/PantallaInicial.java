@@ -279,7 +279,6 @@ public class PantallaInicial extends javax.swing.JFrame {
         if(logged){
             this.dispose();
             ModificarUser mod=new ModificarUser();
-            ModificarUser.loggedClient = this.loggedClient;
             mod.setVisible(true);
         }
     }//GEN-LAST:event_btnChgDatosActionPerformed

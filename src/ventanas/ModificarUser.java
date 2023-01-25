@@ -10,12 +10,18 @@ import javax.swing.JOptionPane;
  */
 public class ModificarUser extends javax.swing.JFrame {
 
-    public static Cliente loggedClient;
+    public Cliente loggedClient;
     
     public ModificarUser() {
         initComponents();
+        loggedClient = PantallaInicial.loggedClient;
         this.setResizable(false);
         setLocationRelativeTo(null);
+        ingNombre.setText(loggedClient.getNombre());
+        ingApellido.setText(loggedClient.getApellido());
+        ingDireccion.setText(loggedClient.getDireccion());
+        ingTelefono.setText(loggedClient.getTelefono());
+        ingEmail.setText(loggedClient.getCorreo());
     }
 
     /**
@@ -179,7 +185,7 @@ public class ModificarUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,7 +203,7 @@ public class ModificarUser extends javax.swing.JFrame {
         CRUDUsuario dm = new CRUDUsuario();
         String nombre=ingNombre.getText().toUpperCase();
         String apellido=ingApellido.getText().toUpperCase();
-        String dir=ingDireccion.getText().toUpperCase();
+        String dir=ingDireccion.getText().toLowerCase();
         String tel=ingTelefono.getText();
         String email=ingEmail.getText();
         String pass=ingPass.getText();
