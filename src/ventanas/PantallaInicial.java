@@ -18,7 +18,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
-        this.jlblCarrito.setVisible(true);
+        this.jlblCarrito.setVisible(false);
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
@@ -45,6 +45,10 @@ public class PantallaInicial extends javax.swing.JFrame {
         panels();
                 
         this.repaint();  
+    }
+    
+    public void setCarritoVisible(boolean isVisible){
+        this.jlblCarrito.setVisible(isVisible);
     }
     
     public void panels(){

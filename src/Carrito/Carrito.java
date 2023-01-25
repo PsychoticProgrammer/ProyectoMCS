@@ -10,10 +10,12 @@ import ventanas.PantallaInicial;
 public class Carrito extends javax.swing.JFrame {
 
     private CRUDCarrito baseDatos;
+    public static Carrito productosCarrito;
     
     public Carrito() {
         initComponents();
         this.setLocationRelativeTo(null);
+        productosCarrito = this;
         this.jbtnComprar.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.initPanelProductos();

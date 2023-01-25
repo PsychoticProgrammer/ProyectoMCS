@@ -3,6 +3,7 @@ package ventanas;
 
 import BDD.CRUDCarrito;
 import BDD.Conexion;
+import Carrito.Carrito;
 import Soporte.Dialogs;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -125,6 +126,9 @@ public class Product extends javax.swing.JPanel {
     private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
         if(this.jtbtnCarrito.isSelected()&& this.validatePurchase()){
             this.baseDatos.createProductoCarrito(this.codigoProducto);
+            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+                Carrito.productosCarrito.initPanelProductos();
+            }
             this.jtbtnCarrito.setText("<html><center>Quitar del Carrito</center></html>");
             return;
         } else if(!this.jtbtnCarrito.isSelected() && this.validatePurchase()){
@@ -133,6 +137,9 @@ public class Product extends javax.swing.JPanel {
                 return;
             }
             this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+                Carrito.productosCarrito.initPanelProductos();
+            }
             this.jtbtnCarrito.setText("<html><center>Agregar al Carrito</center></html>");
             return;
         }
