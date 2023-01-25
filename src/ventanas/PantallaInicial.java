@@ -1,10 +1,12 @@
 
 package ventanas;
 
-import Usuario.Cliente;
+import Carrito.Carrito;
+import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class PantallaInicial extends javax.swing.JFrame {
     
@@ -12,12 +14,14 @@ public class PantallaInicial extends javax.swing.JFrame {
     public boolean logged = false;
     int numeroFilas = 5;
     public static Cliente loggedClient;
+    public static JPanel panelProductos;
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
-        this.jlblcarritoImagen.setVisible(false);
+        this.jlblCarrito.setVisible(true);
         loggedClient = cliente;
         pantallaInicial = this;
+        panelProductos = this.jpnlProductos;
         GraphicsEnvironment env =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -36,19 +40,20 @@ public class PantallaInicial extends javax.swing.JFrame {
                 getScaledInstance(logoPrin.getWidth(),logoPrin.getHeight(), Image.SCALE_DEFAULT)));
         
         ImageIcon carrito= new ImageIcon(this.getClass().getResource("/images/carrito.jpg"));
-        this.jlblcarritoImagen.setIcon(new ImageIcon(carrito.getImage().
-                getScaledInstance(jlblcarritoImagen.getWidth(),jlblcarritoImagen.getHeight(), Image.SCALE_DEFAULT)));
+        this.jlblCarrito.setIcon(new ImageIcon(carrito.getImage().
+                getScaledInstance(jlblCarrito.getWidth(),jlblCarrito.getHeight(), Image.SCALE_DEFAULT)));
         panels();
                 
-        this.repaint();        
+        this.repaint();  
     }
     
     public void panels(){
-        for (int i = 0; i < 15; i++) {
-            jPanel4.add(new Product());           
+        for (int i = 0; i < 4; i++) {
+            //EVENTUALMENTE REEMPLAZAR i POR EL CODIGO DEL PRODUCTO QUE RECIBE
+            jpnlProductos.add(new Product(i+1));           
         }
-        jPanel4.validate();
-        jPanel4.repaint();
+        jpnlProductos.validate();
+        jpnlProductos.repaint();
     }
     
     public void cambiarTextLogBtn(){
@@ -77,11 +82,11 @@ public class PantallaInicial extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jlblcarritoImagen = new javax.swing.JLabel();
+        jlblCarrito = new javax.swing.JLabel();
         btnLog = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
+        jpnlProductos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -193,7 +198,12 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("¡Bienvenido!");
 
-        jlblcarritoImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlblCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlblCarrito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblCarritoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -203,7 +213,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                 .addGap(76, 76, 76)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1032, Short.MAX_VALUE)
-                .addComponent(jlblcarritoImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -218,7 +228,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jlblcarritoImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(18, 18, 18)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -230,7 +240,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.setFont(new java.awt.Font("Cantarell", 1, 22)); // NOI18N
-        btnLog.setForeground(new java.awt.Color(0, 0, 0));
         btnLog.setText("Log in");
         btnLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLog.addActionListener(new java.awt.event.ActionListener() {
@@ -242,16 +251,15 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnLog.setBounds(1780, 100, 120, 36);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("¡Productos para todos!");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(810, 120, 690, 80);
 
         jScrollPane1.setBorder(null);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new java.awt.GridLayout(numeroFilas, 3, 60, 60));
-        jScrollPane1.setViewportView(jPanel4);
+        jpnlProductos.setBackground(new java.awt.Color(255, 255, 255));
+        jpnlProductos.setLayout(new java.awt.GridLayout(numeroFilas, 3, 60, 60));
+        jScrollPane1.setViewportView(jpnlProductos);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(420, 230, 1490, 780);
@@ -293,6 +301,11 @@ public class PantallaInicial extends javax.swing.JFrame {
         Login login = new Login();
         login.setVisible(true);
     }//GEN-LAST:event_btnLogActionPerformed
+
+    private void jlblCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblCarritoMouseClicked
+        Carrito cr = new Carrito();
+        cr.setVisible(true);
+    }//GEN-LAST:event_jlblCarritoMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -339,9 +352,9 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel jlblcarritoImagen;
+    private javax.swing.JLabel jlblCarrito;
+    private javax.swing.JPanel jpnlProductos;
     private javax.swing.JLabel logoPrin;
     // End of variables declaration//GEN-END:variables
 }
