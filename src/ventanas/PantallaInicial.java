@@ -3,7 +3,6 @@ package ventanas;
 
 import BDD.CRUDPedidos;
 import Soporte.Dialogs;
-import Usuario.Cliente;
 import Carrito.Carrito;
 import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
@@ -294,11 +293,11 @@ public class PantallaInicial extends javax.swing.JFrame {
         if(logged){
             CRUDPedidos cp = new CRUDPedidos();
             this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
-            jPanel4.removeAll();
+            this.jpnlProductos.removeAll();
             if(this.numeroFilas != 0){
                 ArrayList<String[]> detallesPedidos = cp.detallesPedidos(PantallaInicial.loggedClient.getCedula());
                 for (int i = 0; i < detallesPedidos.size(); i++) {                    
-                    jPanel4.add(new Pedidos(detallesPedidos.get(i)[0],
+                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i)[0],
                                             detallesPedidos.get(i)[1],
                                             detallesPedidos.get(i)[2],
                                             detallesPedidos.get(i)[3],
@@ -307,8 +306,8 @@ public class PantallaInicial extends javax.swing.JFrame {
             }else{
                 jLabel4.add(new JLabel("Por ahora, no existen pedidos."));
             }                
-            jPanel4.revalidate();
-            jPanel4.repaint();
+            this.jpnlProductos.revalidate();
+            this.jpnlProductos.repaint();
             this.repaint();                
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
