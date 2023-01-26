@@ -1,7 +1,6 @@
 *.class
-*.xml
 *.mf
 *.jar
-/build
-/test
-/nbproject
+build/*
+test/*
+
