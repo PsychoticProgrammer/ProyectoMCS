@@ -233,9 +233,9 @@ public class RegistroForm extends javax.swing.JFrame {
         String ced=ingCedula.getText();
         String nombre=ingNombre.getText().toUpperCase();
         String apellido=ingApellido.getText().toUpperCase();
-        String dir=ingDireccion.getText().toLowerCase();
+        String dir=ingDireccion.getText().toUpperCase();
         String tel=ingTelefono.getText();
-        String email=ingEmail.getText();
+        String email=ingEmail.getText().toLowerCase();
         String pass=ingPass.getText();
         String tarjeta=ingTar.getText();
         ingCedula.setText(null);

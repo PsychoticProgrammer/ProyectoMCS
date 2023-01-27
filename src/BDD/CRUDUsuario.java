@@ -59,7 +59,7 @@ public class CRUDUsuario {
     public boolean updateUsuario(String cedula, String nombre, String apellido, String direccion,
             String telefono, String correo, String password){
         try{
-            this.ps = this.conexion.getConnection().prepareStatement("UPDATE PERSONAS SET"
+            this.ps = this.conexion.getConnection().prepareStatement("UPDATE PERSONAS SET "
                     + "NOM_PER='"+nombre+"',APE_PER='"+apellido+"',DIR_PER='"+direccion+"',TEL_PER='"+telefono+"',"
                     + "COR_PER='"+correo+"',CONTR_PER='"+password+"' WHERE (ID_PER='"+cedula+"');");
             
