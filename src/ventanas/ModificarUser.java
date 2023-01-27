@@ -1,7 +1,7 @@
 package ventanas;
 
 import BDD.CRUDUsuario;
-import Usuario.Cliente;
+import Clases.Cliente;
 import javax.swing.JOptionPane;
 
 /**
