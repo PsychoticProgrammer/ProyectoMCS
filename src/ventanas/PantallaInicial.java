@@ -84,8 +84,8 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
@@ -136,15 +136,15 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 204));
-        jButton3.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Opción 3");
-        jButton3.setBorder(null);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnChgDatos.setBackground(new java.awt.Color(0, 51, 204));
+        btnChgDatos.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
+        btnChgDatos.setForeground(new java.awt.Color(255, 255, 255));
+        btnChgDatos.setText("Cambiar Datos");
+        btnChgDatos.setBorder(null);
+        btnChgDatos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChgDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnChgDatosActionPerformed(evt);
             }
         });
 
@@ -159,7 +159,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnChgDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -184,7 +184,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChgDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(24, 24, 24))
@@ -315,9 +315,12 @@ public class PantallaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPedidosActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
+        if(logged){
+            ModificarUser mod=new ModificarUser();
+            mod.setVisible(true);
+        }
+    }//GEN-LAST:event_btnChgDatosActionPerformed
 
     private void btnLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogActionPerformed
         if(logged){
@@ -370,11 +373,11 @@ public class PantallaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChgDatos;
     private javax.swing.JButton btnLog;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JLabel imgLog;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
