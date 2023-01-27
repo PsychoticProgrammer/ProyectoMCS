@@ -42,6 +42,9 @@ public class RegistroForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         ingPass = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
+        jLabel9 = new javax.swing.JLabel();
+        ingTar = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
         btnRegistro = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
@@ -162,6 +165,21 @@ public class RegistroForm extends javax.swing.JFrame {
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 580, 240, 10));
 
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("TARJETA CREDITO O DEBITO:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, -1, -1));
+
+        ingTar.setBackground(new java.awt.Color(51, 51, 51));
+        ingTar.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        ingTar.setForeground(new java.awt.Color(255, 255, 255));
+        ingTar.setBorder(null);
+        jPanel1.add(ingTar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 620, 241, 30));
+
+        jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 650, 240, 10));
+
         btnRegistro.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
         btnRegistro.setText("REGISTRARSE");
         btnRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +187,7 @@ public class RegistroForm extends javax.swing.JFrame {
                 btnRegistroActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 670, -1, 40));
+        jPanel1.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 730, -1, 40));
 
         btnBack.setFont(new java.awt.Font("Lucida Sans", 1, 14)); // NOI18N
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/previous.png"))); // NOI18N
@@ -219,6 +237,7 @@ public class RegistroForm extends javax.swing.JFrame {
         String tel=ingTelefono.getText();
         String email=ingEmail.getText();
         String pass=ingPass.getText();
+        String tarjeta=ingTar.getText();
         ingCedula.setText(null);
         ingNombre.setText(null);
         ingApellido.setText(null);
@@ -226,7 +245,8 @@ public class RegistroForm extends javax.swing.JFrame {
         ingTelefono.setText(null);
         ingEmail.setText(null);
         ingPass.setText(null);
-        if(dm.createUsuario(ced,nombre, apellido, dir, tel, email, pass)){
+        ingTar.setText(null);
+        if(dm.createUsuario(ced,nombre, apellido, dir, tel, email, pass, tarjeta)){
             JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Los datos no se han guardado");
@@ -274,6 +294,7 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JTextField ingEmail;
     private javax.swing.JTextField ingNombre;
     private javax.swing.JTextField ingPass;
+    private javax.swing.JTextField ingTar;
     private javax.swing.JTextField ingTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -283,6 +304,7 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -291,5 +313,6 @@ public class RegistroForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     // End of variables declaration//GEN-END:variables
 }

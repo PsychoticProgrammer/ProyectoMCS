@@ -277,7 +277,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         if(logged){
-            this.dispose();
             ModificarUser mod=new ModificarUser();
             mod.setVisible(true);
         }
