@@ -3,7 +3,7 @@ package ventanas;
 
 import BDD.*;
 import Soporte.Dialogs;
-import Usuario.Cliente;
+import Clases.Cliente;
 
 public class Login extends javax.swing.JFrame {
     
@@ -138,7 +138,12 @@ public class Login extends javax.swing.JFrame {
         PantallaInicial.pantallaInicial.logged = true;
         PantallaInicial.pantallaInicial.cambiarTextLogBtn();
         PantallaInicial.pantallaInicial.setVisible(true);
+        PantallaInicial.pantallaInicial.setCarritoVisible(true);
         PantallaInicial.loggedClient = client;
+        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
+            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
+            p.productoEnCarrito();
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed

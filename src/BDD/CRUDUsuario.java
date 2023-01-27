@@ -1,7 +1,7 @@
 
 package BDD;
 
-import Usuario.Cliente;
+import Clases.Cliente;
 import java.sql.*;
 
 public class CRUDUsuario {
