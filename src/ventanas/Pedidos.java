@@ -5,6 +5,7 @@
 package ventanas;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,16 +17,29 @@ public class Pedidos extends javax.swing.JPanel {
     /**
      * Creates new form Pedidos
      */
-    public Pedidos(String numPedido, String fecha, String estado, String producto, String total) {
+    public Pedidos(ArrayList<String[]> pedido) {
         initComponents();
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
-        this.numPedidoText.setText(numPedido);
-        this.fechaText.setText(fecha);
-        this.estadoText.setText(estado);
-        this.detalleText.setText(producto);
-        this.totalText.setText(total);
+        setProducto(pedido);
+        this.repaint();
+    }
+    
+    public void setProducto(ArrayList<String[]> pedido){
+        this.numPedidoText.setText(pedido.get(0)[0]);
+        this.fechaText.setText(pedido.get(0)[1]);
+        this.estadoText.setText(pedido.get(0)[2]);
+        this.totalText.setText("$" + pedido.get(0)[3]);
+        
+        String productosDetalles = "";
+        for (int i = 1; i < pedido.size(); i++) {
+            productosDetalles += "- " + pedido.get(i)[0] + 
+                                    ": " + pedido.get(i)[1] + 
+                                    ". $" + pedido.get(i)[2] + 
+                                    " x " + pedido.get(i)[3] + "<br>";
+        }
+        this.detalleText.setText("<html><body>" + productosDetalles + "</body></html>");
     }
 
     /**
