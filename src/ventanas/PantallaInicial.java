@@ -304,7 +304,7 @@ public class PantallaInicial extends javax.swing.JFrame {
                                             detallesPedidos.get(i)[4]));
                 }
             }else{
-                jLabel4.add(new JLabel("Por ahora, no existen pedidos."));
+                this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
             }                
             this.jpnlProductos.revalidate();
             this.jpnlProductos.repaint();
