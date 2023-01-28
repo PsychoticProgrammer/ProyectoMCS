@@ -19,9 +19,8 @@ public class CRUDPedidos {
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""
                     SELECT COUNT(*)
-                    FROM PEDIDOS_SIMPLES PE, PRODUCTOS PR
-                    WHERE PE.ID_PRO_PER = PR.COD_PRO
-                    AND PE.ID_USU_PED = ?""");
+                    FROM PEDIDOS PE
+                    WHERE PE.ID_USU_PED = ?""");
             this.ps.setString(1,cedula);
             
             this.rs = this.ps.executeQuery();
@@ -36,22 +35,32 @@ public class CRUDPedidos {
     public ArrayList<String[]> detallesPedidos(String cedula){
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""
-                    SELECT PE.NUM_PED, PE.FEC_PED, PE.EST_PED, PR.NOM_PRO, PR.PRE_PRO
-                    FROM PEDIDOS_SIMPLES PE, PRODUCTOS PR
-                    WHERE PE.ID_PRO_PER = PR.COD_PRO
+                    SELECT PE.NUM_PED, PE.FEC_PED, PE.EST_PED, PE.TOTAL, PR.NOM_PRO, PR.DES_PRO, PR.PRE_PRO, D.CAN_PRO_PED
+                    FROM PEDIDOS PE, PRODUCTOS PR, DETALLE_PEDIDO D
+                    WHERE PE.NUM_PED = D.NUM_PED_PER
+                    AND PR.COD_PRO = D.ID_PRO_PED
                     AND PE.ID_USU_PED = ?""");
             this.ps.setString(1,cedula);
             
             ArrayList<String[]> datosPedidos = new ArrayList<>();
-            String datos[] = new String[5];
+            String datosPedido[] = new String[4];
+            String datosDetalle[] = new String[4];
+            int i = 0;
             this.rs = this.ps.executeQuery();
             while(this.rs.next()){
-                datos[0] = this.rs.getString(1);
-                datos[1] = this.rs.getString(2);
-                datos[2] = this.rs.getString(3);
-                datos[3] = this.rs.getString(4);
-                datos[4] = this.rs.getString(5);
-                datosPedidos.add(datos);
+                if(i == 0){
+                    datosPedido[0] = this.rs.getString(1);
+                    datosPedido[1] = this.rs.getString(2);
+                    datosPedido[2] = this.rs.getString(3);
+                    datosPedido[3] = this.rs.getString(4);
+                    datosPedidos.add(datosPedido);
+                }
+                datosDetalle[0] = this.rs.getString(5);
+                datosDetalle[1] = this.rs.getString(6);
+                datosDetalle[2] = this.rs.getString(7);
+                datosDetalle[3] = this.rs.getString(8);
+                datosPedidos.add(datosDetalle);
+                i++;
             }
             return datosPedidos;
         }catch(SQLException e){

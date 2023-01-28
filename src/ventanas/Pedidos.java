@@ -93,7 +93,7 @@ public class Pedidos extends javax.swing.JPanel {
 
         detalleText.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         detalleText.setForeground(new java.awt.Color(0, 0, 0));
-        detalleText.setText("<html><body>- Producto 1 <br>- Producto 2<br> - Producto 3 </body></html>");
+        detalleText.setText("<html><body>- Producto 1 <br>- Producto 2<br> - Producto 3<br><br><br><br><br><br> </body></html>");
         detalleText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         detalleLabel1.setFont(new java.awt.Font("Cantarell", 1, 30)); // NOI18N
@@ -165,8 +165,8 @@ public class Pedidos extends javax.swing.JPanel {
                             .addComponent(detalleLabel)
                             .addComponent(detalleLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(detalleText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 64, Short.MAX_VALUE)
+                        .addComponent(detalleText, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalLabel)
                     .addComponent(totalText))

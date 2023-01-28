@@ -103,10 +103,10 @@
                           <Component id="detalleLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="detalleText" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="detalleText" pref="262" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" pref="64" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="totalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="totalText" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -231,7 +231,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;- Producto 1 &lt;br&gt;- Producto 2&lt;br&gt; - Producto 3 &lt;/body&gt;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;- Producto 1 &lt;br&gt;- Producto 2&lt;br&gt; - Producto 3&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt; &lt;/body&gt;&lt;/html&gt;"/>
         <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
     </Component>

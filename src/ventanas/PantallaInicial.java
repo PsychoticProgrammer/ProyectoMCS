@@ -311,7 +311,6 @@ public class PantallaInicial extends javax.swing.JFrame {
             this.repaint();                
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
-            return;
         }
     }//GEN-LAST:event_btnPedidosActionPerformed
 
