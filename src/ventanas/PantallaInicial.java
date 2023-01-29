@@ -2,6 +2,7 @@
 package ventanas;
 
 import BDD.CRUDPedidos;
+import BDD.CRUDProducto;
 import Soporte.Dialogs;
 import Carrito.Carrito;
 import Clases.Cliente;
@@ -56,9 +57,10 @@ public class PantallaInicial extends javax.swing.JFrame {
     }
     
     public void panels(){
-        for (int i = 0; i < 4; i++) {
-            //EVENTUALMENTE REEMPLAZAR i POR EL CODIGO DEL PRODUCTO QUE RECIBE
-            jpnlProductos.add(new Product(i+1));           
+        CRUDProducto cp = new CRUDProducto();
+        ArrayList <ArrayList> productosList =cp.getProuctos();
+        for (int i = 0; i < productosList.size(); i++) {
+        jpnlProductos.add(new Product(Integer.parseInt((String)productosList.get(i).get(0))));           
         }
         jpnlProductos.validate();
         jpnlProductos.repaint();

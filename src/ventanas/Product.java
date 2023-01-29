@@ -13,9 +13,9 @@ import java.sql.ResultSet;
 public class Product extends javax.swing.JPanel {
 
     private CRUDCarrito baseDatos;
-    private int codigoProducto;
+    private String codigoProducto;
     
-    public Product(int codigoProducto) {
+    public Product(String codigoProducto) {
         initComponents();
         this.codigoProducto = codigoProducto;
         this.baseDatos = new CRUDCarrito();
@@ -25,8 +25,8 @@ public class Product extends javax.swing.JPanel {
         this.repaint();
     }
     
-    public int getCodigoProducto(){
-        return this.codigoProducto;
+    public String getCodigoProducto(){
+        return this.getCodigoProducto();
     }
     
     private boolean validatePurchase(){
