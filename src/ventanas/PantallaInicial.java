@@ -60,7 +60,12 @@ public class PantallaInicial extends javax.swing.JFrame {
         CRUDProducto cp = new CRUDProducto();
         ArrayList <ArrayList> productosList =cp.getProuctos();
         for (int i = 0; i < productosList.size(); i++) {
-        jpnlProductos.add(new Product(Integer.parseInt((String)productosList.get(i).get(0))));           
+        jpnlProductos.add(new Product(Integer.parseInt((String)productosList.get(i).get(0)),
+                                    (String)productosList.get(i).get(1),
+                                    (Float)productosList.get(i).get(2),
+                                    (String)productosList.get(i).get(3),
+                                    (int)productosList.get(i).get(4)));
+                                               
         }
         jpnlProductos.validate();
         jpnlProductos.repaint();
