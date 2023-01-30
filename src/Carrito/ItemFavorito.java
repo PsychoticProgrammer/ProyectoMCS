@@ -120,7 +120,18 @@ public class ItemFavorito extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        
+        PantallaInicial.loggedClient.getFavoritos().remove((Object)this.codigoProducto);
+        PantallaInicial.loggedClient.setProductoCarrito(this.codigoProducto);
+        this.baseDatosFavoritos.agregarAlCarrito(this.codigoProducto);
+        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
+            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
+            if(p.getCodigoProducto() == this.codigoProducto){
+                p.productoRetiradoFavoritos();
+                p.productoEnCarrito();
+                this.padre.initPanelProductos();
+                return;
+            }
+        }
     }//GEN-LAST:event_jbtnCarritoActionPerformed
 
 
