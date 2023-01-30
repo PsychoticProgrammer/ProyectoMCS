@@ -15,7 +15,6 @@ public class ItemFavorito extends javax.swing.JPanel {
     
     public ItemFavorito(String[] datosProducto, Favoritos padre){
         initComponents();
-        this.jbtnCarrito.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.baseDatosFavoritos = new CRUDFavoritos();
         this.codigoProducto = Integer.parseInt(datosProducto[0]);

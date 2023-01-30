@@ -28,7 +28,7 @@ public class Favoritos extends javax.swing.JFrame {
         if(favoritos == null){
             return;
         }
-        //this.jbtnCarrito.setVisible(true);
+        this.jbtnCarrito.setVisible(true);
         this.jpnlProductos.setLayout(new GridLayout(favoritos.size(),1));
         for(int i = 0; i < favoritos.size(); i++){
             this.jpnlProductos.add(new ItemFavorito(favoritos.get(i),this));
