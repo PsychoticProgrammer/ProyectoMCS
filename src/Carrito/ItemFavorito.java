@@ -2,20 +2,22 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
+import BDD.CRUDFavoritos;
 import ventanas.PantallaInicial;
 import ventanas.Product;
 
 public class ItemFavorito extends javax.swing.JPanel {
     
     private CRUDCarrito baseDatos;
+    private CRUDFavoritos baseDatosFavoritos;
     private int codigoProducto, unidades;
     private Favoritos padre;
     
     public ItemFavorito(String[] datosProducto, Favoritos padre){
         initComponents();
         this.jbtnCarrito.setVisible(false);
-        this.jbtnEliminar.setVisible(false);
         this.baseDatos = new CRUDCarrito();
+        this.baseDatosFavoritos = new CRUDFavoritos();
         this.codigoProducto = Integer.parseInt(datosProducto[0]);
         this.jlblNombre.setText(datosProducto[1]);
         this.jlblPrecio.setText(datosProducto[2]);
@@ -26,11 +28,7 @@ public class ItemFavorito extends javax.swing.JPanel {
     public int getCodigoProducto(){
         return this.codigoProducto;
     }
-    
-    public void comprarProducto(){
         
-    }
-    
     public void reservarProducto(){
         
     }
@@ -110,16 +108,16 @@ public class ItemFavorito extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
-        /*PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
-        this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
+        PantallaInicial.loggedClient.getFavoritos().remove((Object)this.codigoProducto);
+        this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             if(p.getCodigoProducto() == this.codigoProducto){
-                p.productoRetiradoCarrito();
+                p.productoRetiradoFavoritos();
                 this.padre.initPanelProductos();
                 return;
             }
-        }*/
+        }
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed

@@ -62,7 +62,19 @@ public class Product extends javax.swing.JPanel {
         this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
         this.jtbtnCarrito.setSelected(false);
     }
-
+    
+    public void productoEnFavoritos(){
+        if(this.baseDatosFavoritos.isFavorito(this.codigoProducto)){
+            this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+            this.jtbtnFavorito.setSelected(true);
+        }
+    }
+    
+    public void productoRetiradoFavoritos(){
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+        this.jtbtnFavorito.setSelected(false);
+    }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
