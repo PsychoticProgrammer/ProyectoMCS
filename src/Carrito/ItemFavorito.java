@@ -13,11 +13,12 @@ public class ItemFavorito extends javax.swing.JPanel {
     
     public ItemFavorito(String[] datosProducto, Favoritos padre){
         initComponents();
+        this.jbtnCarrito.setVisible(false);
+        this.jbtnEliminar.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.codigoProducto = Integer.parseInt(datosProducto[0]);
         this.jlblNombre.setText(datosProducto[1]);
         this.jlblPrecio.setText(datosProducto[2]);
-        this.unidades = Integer.parseInt(datosProducto[3]);
         //this.jlblImagen.setIcon(Cambiar cuando haya fotos del producto);
         this.padre = padre;
     }
@@ -109,7 +110,7 @@ public class ItemFavorito extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
-        PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
+        /*PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
         this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
@@ -118,7 +119,7 @@ public class ItemFavorito extends javax.swing.JPanel {
                 this.padre.initPanelProductos();
                 return;
             }
-        }
+        }*/
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed

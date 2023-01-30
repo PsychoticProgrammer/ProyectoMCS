@@ -40,7 +40,7 @@ public class Product extends javax.swing.JPanel {
     
     private boolean validateLogged(){
         if(PantallaInicial.loggedClient == null){
-            Dialogs.informationDialog("Debe Iniciar Sesión para realizar una Compra");
+            Dialogs.informationDialog("Debe Iniciar Sesión para realizar esta Acción");
             return false;
         }
         return true;
@@ -132,10 +132,10 @@ public class Product extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtbtnFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtbtnCarrito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtbtnFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -164,7 +164,26 @@ public class Product extends javax.swing.JPanel {
     }//GEN-LAST:event_jtbtnCarritoActionPerformed
 
     private void jtbtnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnFavoritoActionPerformed
-        System.out.println("Pressed");
+        if(this.jtbtnFavorito.isSelected() && this.validateLogged()){
+            this.baseDatos.createProductoCarrito(this.codigoProducto);
+            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+                Carrito.productosCarrito.initPanelProductos();
+            }
+            this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+            return;
+        } else if(!this.jtbtnCarrito.isSelected() && this.validateLogged()){
+           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+            if(unidades == -1){
+                return;
+            }
+            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+                Carrito.productosCarrito.initPanelProductos();
+            }
+            this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+            return;
+        }
+        this.jtbtnCarrito.setSelected(false);
     }//GEN-LAST:event_jtbtnFavoritoActionPerformed
 
 

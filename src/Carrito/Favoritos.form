@@ -35,7 +35,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
-                      <Component id="jbtnComprar" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtnCarrito" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -48,7 +48,7 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtnComprar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtnCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtnAtras" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -67,7 +67,7 @@
         <Property name="text" type="java.lang.String" value="Favoritos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnComprar">
+    <Component class="javax.swing.JButton" name="jbtnCarrito">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -75,7 +75,7 @@
         <Property name="text" type="java.lang.String" value="Ir al Carrito"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnComprarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCarritoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnAtras">
