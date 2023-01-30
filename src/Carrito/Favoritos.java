@@ -35,7 +35,7 @@ public class Favoritos extends javax.swing.JFrame {
         }
     }
     
-    private void comprarProductos(){
+    /*private void comprarProductos(){
         for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
             ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
         }
@@ -45,7 +45,7 @@ public class Favoritos extends javax.swing.JFrame {
         for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
             ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
         }
-    }
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -100,12 +100,12 @@ public class Favoritos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jscpProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jbtnAtras)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(171, 171, 171)
+                        .addGap(179, 179, 179)
                         .addComponent(jbtnCarrito)
                         .addGap(16, 16, 16))))
         );
@@ -126,12 +126,10 @@ public class Favoritos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
-        this.reservarProductos();
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        this.comprarProductos();
         this.jpnlProductos.removeAll();
         this.jpnlProductos.updateUI();
         PantallaInicial.loggedClient.getCarrito().removeAll(PantallaInicial.loggedClient.getCarrito());

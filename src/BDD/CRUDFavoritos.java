@@ -33,6 +33,7 @@ public class CRUDFavoritos extends CRUDCarrito{
                         "PRODUCTOS P, IMAGENES_PRODUCTO I, FAVORITOS F WHERE I.COD_PRO_PER = P.COD_PRO "+
                         "AND P.COD_PRO = F.ID_PRO_FAV AND F.ID_USU_FAV = ?";
             this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
             this.rs = this.ps.executeQuery();
             ArrayList<String[]> favoritos = new ArrayList();
             while(this.rs.next()){
