@@ -3,7 +3,7 @@ package BDD;
 
 import java.sql.*;
 
-public class CRUDFavoritos {
+public class CRUDFavoritos extends CRUDCarrito{
     
     private Conexion conexion;
     private PreparedStatement ps;

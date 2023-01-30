@@ -22,33 +22,16 @@ public class ItemFavorito extends javax.swing.JPanel {
         this.padre = padre;
     }
     
-    private void initSpinner(){
-        this.jspnCantidad.setValue(1);
-    }
-    
     public int getCodigoProducto(){
         return this.codigoProducto;
     }
     
     public void comprarProducto(){
-        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
-        this.baseDatos.comprarProductosCarrito(this.codigoProducto,cantidad-1);
-        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
-            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
-            if(p.getCodigoProducto() == this.codigoProducto){
-                p.productoRetiradoCarrito();
-                return;
-            }
-        }
+        
     }
     
     public void reservarProducto(){
-        int cantidad = Integer.parseInt(this.jspnCantidad.getValue().toString());
-        if(cantidad > this.unidades){
-            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,cantidad-this.unidades,'-');
-        }else if(cantidad < this.unidades){
-            this.baseDatos.updateProductosCarrito(this.codigoProducto,cantidad,this.unidades-cantidad,'+');
-        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -139,7 +122,7 @@ public class ItemFavorito extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jbtnCarritoActionPerformed
 
 
