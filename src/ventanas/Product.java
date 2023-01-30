@@ -2,7 +2,9 @@
 package ventanas;
 
 import BDD.CRUDCarrito;
+import BDD.CRUDFavoritos;
 import Carrito.Carrito;
+import Carrito.Favoritos;
 import Soporte.Dialogs;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -12,12 +14,14 @@ import javax.swing.JToggleButton;
 public class Product extends javax.swing.JPanel {
 
     private CRUDCarrito baseDatos;
+    private CRUDFavoritos baseDatosFavoritos;
     private int codigoProducto;
     
     public Product(int codigoProducto) {
         initComponents();
         this.codigoProducto = codigoProducto;
         this.baseDatos = new CRUDCarrito();
+        this.baseDatosFavoritos = new CRUDFavoritos();
         ImageIcon imagenPro= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().
                 getScaledInstance(280,280, Image.SCALE_SMOOTH)));
@@ -31,6 +35,7 @@ public class Product extends javax.swing.JPanel {
     }
     
     private void setImage(JToggleButton boton, String path){
+        boton.setIcon(null);
         ImageIcon image = new ImageIcon(this.getClass().getResource(path));
         Icon icon =  new ImageIcon(image.getImage().getScaledInstance(
                 58,49,Image.SCALE_SMOOTH));
@@ -143,7 +148,7 @@ public class Product extends javax.swing.JPanel {
     private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
         if(this.jtbtnCarrito.isSelected()&& this.validateLogged()){
             this.baseDatos.createProductoCarrito(this.codigoProducto);
-            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+            if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible()){
                 Carrito.productosCarrito.initPanelProductos();
             }
             this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
@@ -154,7 +159,7 @@ public class Product extends javax.swing.JPanel {
                 return;
             }
             this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
-            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
+            if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible() ){
                 Carrito.productosCarrito.initPanelProductos();
             }
             this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
@@ -165,25 +170,22 @@ public class Product extends javax.swing.JPanel {
 
     private void jtbtnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnFavoritoActionPerformed
         if(this.jtbtnFavorito.isSelected() && this.validateLogged()){
-            this.baseDatos.createProductoCarrito(this.codigoProducto);
-            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
-                Carrito.productosCarrito.initPanelProductos();
+            this.baseDatosFavoritos.createProductoFavorito(this.codigoProducto);
+            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+                Favoritos.productosFavoritos.initPanelProductos();
             }
-            this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+            this.setImage(this.jtbtnFavorito,"/images/favorito.png");
             return;
-        } else if(!this.jtbtnCarrito.isSelected() && this.validateLogged()){
-           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
-            if(unidades == -1){
-                return;
+        } else if(!this.jtbtnFavorito.isSelected() && this.validateLogged()){
+
+            this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
+            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+                Favoritos.productosFavoritos.initPanelProductos();
             }
-            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
-            if(Carrito.productosCarrito.isVisible() && Carrito.productosCarrito != null){
-                Carrito.productosCarrito.initPanelProductos();
-            }
-            this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+            this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
             return;
         }
-        this.jtbtnCarrito.setSelected(false);
+        this.jtbtnFavorito.setSelected(false);
     }//GEN-LAST:event_jtbtnFavoritoActionPerformed
 
 

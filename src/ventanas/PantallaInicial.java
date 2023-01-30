@@ -4,6 +4,7 @@ package ventanas;
 import BDD.CRUDPedidos;
 import Soporte.Dialogs;
 import Carrito.Carrito;
+import Carrito.Favoritos;
 import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -22,7 +23,6 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
-        this.jlblCarrito.setVisible(false);
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
@@ -33,11 +33,20 @@ public class PantallaInicial extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("EMPRESA S.A.");
         this.setIconImage(new ImageIcon(this.getClass().getResource("/images/icono.png")).getImage());
+        this.setLabelImage(this.imgLog,"/images/user.png");
+        this.setLabelImage(this.logoPrin,"/images/logoPrincipal.png");
+        this.btnLog.setVisible(false);
+        this.setLabelImage(this.logoPrin,"/images/logoPrincipal.png");
+        this.setLabelImage(this.jlblCarrito,"/images/carrito.jpg");
+        this.jlblCarrito.setVisible(false);
+        this.setLabelImage(this.jlblFavoritos,"/images/favorito.png");
+        this.jlblFavoritos.setVisible(false);
+        panels();
         
-        ImageIcon imagenLog= new ImageIcon(this.getClass().getResource("/images/user.png"));
+        /*ImageIcon imagenLog= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgLog.setIcon(new ImageIcon(imagenLog.getImage().
                 getScaledInstance(imgLog.getWidth(),imgLog.getHeight(), Image.SCALE_DEFAULT)));
-        btnLog.setVisible(false);
+        
         
         ImageIcon logo= new ImageIcon(this.getClass().getResource("/images/logoPrincipal.png"));
         this.logoPrin.setIcon(new ImageIcon(logo.getImage().
@@ -46,13 +55,23 @@ public class PantallaInicial extends javax.swing.JFrame {
         ImageIcon carrito= new ImageIcon(this.getClass().getResource("/images/carrito.jpg"));
         this.jlblCarrito.setIcon(new ImageIcon(carrito.getImage().
                 getScaledInstance(jlblCarrito.getWidth(),jlblCarrito.getHeight(), Image.SCALE_DEFAULT)));
-        panels();
+        */
                 
-        this.repaint();  
+        //this.repaint();  
+    }
+    
+    private void setLabelImage(JLabel target, String path){
+        ImageIcon image = new ImageIcon(this.getClass().getResource(path));
+        target.setIcon(new ImageIcon(image.getImage().
+                getScaledInstance(target.getWidth(),target.getHeight(),Image.SCALE_SMOOTH)));
     }
     
     public void setCarritoVisible(boolean isVisible){
         this.jlblCarrito.setVisible(isVisible);
+    }
+    
+    public void setFavoritosVisible(boolean isVisible){
+        this.jlblFavoritos.setVisible(isVisible);
     }
     
     public void panels(){
@@ -84,13 +103,14 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnChgDatos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jlblCarrito = new javax.swing.JLabel();
+        jlblFavoritos = new javax.swing.JLabel();
         btnLog = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -213,6 +233,12 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
+        jlblFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblFavoritosMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -220,7 +246,9 @@ public class PantallaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1032, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 958, Short.MAX_VALUE)
+                .addComponent(jlblFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,12 +262,14 @@ public class PantallaInicial extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(18, 18, 18)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jlblCarrito, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                .addComponent(jlblFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -256,7 +286,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLog);
-        btnLog.setBounds(1780, 100, 120, 33);
+        btnLog.setBounds(1780, 100, 120, 36);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
         jLabel4.setText("¡Productos para todos!");
@@ -340,6 +370,11 @@ public class PantallaInicial extends javax.swing.JFrame {
         cr.setVisible(true);
     }//GEN-LAST:event_jlblCarritoMouseClicked
 
+    private void jlblFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblFavoritosMouseClicked
+        Favoritos fav = new Favoritos();
+        fav.setVisible(true);
+    }//GEN-LAST:event_jlblFavoritosMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -387,6 +422,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlblCarrito;
+    private javax.swing.JLabel jlblFavoritos;
     private javax.swing.JPanel jpnlProductos;
     private javax.swing.JLabel logoPrin;
     // End of variables declaration//GEN-END:variables

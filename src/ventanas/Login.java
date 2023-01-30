@@ -139,6 +139,7 @@ public class Login extends javax.swing.JFrame {
         PantallaInicial.pantallaInicial.cambiarTextLogBtn();
         PantallaInicial.pantallaInicial.setVisible(true);
         PantallaInicial.pantallaInicial.setCarritoVisible(true);
+        PantallaInicial.pantallaInicial.setFavoritosVisible(true);
         PantallaInicial.loggedClient = client;
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);

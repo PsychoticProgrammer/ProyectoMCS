@@ -62,5 +62,8 @@ public class CRUDFavoritos extends CRUDCarrito{
         }
     }
     
-    
+    /*public void agregarAlCarrito(int codigoProducto){
+        this.deleteProductoFavorito(codigoProducto);
+        super.createProductoCarrito(codigoProducto);
+    }*/
 }
