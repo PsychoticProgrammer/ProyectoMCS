@@ -304,7 +304,8 @@ public class PantallaInicial extends javax.swing.JFrame {
             }                
             this.jpnlProductos.revalidate();
             this.jpnlProductos.repaint();
-            this.repaint();                
+            this.repaint();
+            
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
         }
