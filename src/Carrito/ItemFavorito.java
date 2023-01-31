@@ -15,7 +15,6 @@ public class ItemFavorito extends javax.swing.JPanel {
     
     public ItemFavorito(String[] datosProducto, Favoritos padre){
         initComponents();
-        this.jbtnCarrito.setVisible(false);
         this.baseDatos = new CRUDCarrito();
         this.baseDatosFavoritos = new CRUDFavoritos();
         this.codigoProducto = Integer.parseInt(datosProducto[0]);
@@ -79,9 +78,9 @@ public class ItemFavorito extends javax.swing.JPanel {
                 .addComponent(jlblNombre)
                 .addGap(77, 77, 77)
                 .addComponent(jlblPrecio)
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
                 .addComponent(jbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jbtnEliminar)
                 .addGap(34, 34, 34))
         );
@@ -100,10 +99,10 @@ public class ItemFavorito extends javax.swing.JPanel {
                             .addComponent(jbtnEliminar))
                         .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,7 +120,18 @@ public class ItemFavorito extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        
+        PantallaInicial.loggedClient.getFavoritos().remove((Object)this.codigoProducto);
+        PantallaInicial.loggedClient.setProductoCarrito(this.codigoProducto);
+        this.baseDatosFavoritos.agregarAlCarrito(this.codigoProducto);
+        for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
+            Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
+            if(p.getCodigoProducto() == this.codigoProducto){
+                p.productoRetiradoFavoritos();
+                p.productoEnCarrito();
+                this.padre.initPanelProductos();
+                return;
+            }
+        }
     }//GEN-LAST:event_jbtnCarritoActionPerformed
 
 

@@ -28,24 +28,12 @@ public class Favoritos extends javax.swing.JFrame {
         if(favoritos == null){
             return;
         }
-        //this.jbtnCarrito.setVisible(true);
+        this.jbtnCarrito.setVisible(true);
         this.jpnlProductos.setLayout(new GridLayout(favoritos.size(),1));
         for(int i = 0; i < favoritos.size(); i++){
             this.jpnlProductos.add(new ItemFavorito(favoritos.get(i),this));
         }
     }
-    
-    /*private void comprarProductos(){
-        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
-            ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
-        }
-    }
-    
-    private void reservarProductos(){
-        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
-            ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
-        }
-    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -130,11 +118,9 @@ public class Favoritos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        this.jpnlProductos.removeAll();
-        this.jpnlProductos.updateUI();
-        PantallaInicial.loggedClient.getCarrito().removeAll(PantallaInicial.loggedClient.getCarrito());
-        this.jbtnCarrito.setVisible(false);
-        Dialogs.informationDialog("Compra Realizada");
+        this.dispose();
+        Carrito c = new Carrito();
+        c.setVisible(true);
     }//GEN-LAST:event_jbtnCarritoActionPerformed
 
     public static void main(String args[]) {
