@@ -63,8 +63,27 @@ public class CRUDFavoritos extends CRUDCarrito{
         }
     }
     
-    /*public void agregarAlCarrito(int codigoProducto){
+    public boolean isFavorito(int codigoProducto){
+        try{
+            String sql = "SELECT COUNT(ID_PRO_FAV) FROM FAVORITOS WHERE ID_USU_FAV = ? AND ID_PRO_FAV = ?";
+            this.ps = this.conexion.getConnection().prepareStatement(sql);
+            this.ps.setString(1,PantallaInicial.loggedClient.getCedula());
+            this.ps.setInt(2,codigoProducto);
+            this.rs = this.ps.executeQuery();
+            this.rs.next();
+            if(this.rs.getInt(1) == 1){
+                PantallaInicial.loggedClient.setProductoCarrito(codigoProducto);
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    public void agregarAlCarrito(int codigoProducto){
         this.deleteProductoFavorito(codigoProducto);
         super.createProductoCarrito(codigoProducto);
-    }*/
+    }
 }

@@ -144,6 +144,7 @@ public class Login extends javax.swing.JFrame {
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             p.productoEnCarrito();
+            p.productoEnFavoritos();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

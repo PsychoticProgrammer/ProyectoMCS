@@ -51,6 +51,11 @@ public class Product extends javax.swing.JPanel {
         return true;
     }
     
+    //INICIO ACTUALIZACION DESDE VENTANA EMERGENTE
+    /*TODA LA SECCIÓN DE VENTANA EMERGENTE SIRVE PARA ACTUALIZAR EL PANEL CUANDO SE HAGAN
+    OPERACIONES SOBRE PRODUCTOS DE CARRITO O FAVORITOS DESDE LA VENTANA EMERGENTE.
+    LA SIGUIENTE SECCIÓN DONDE SE NOMBRAN LOS MÉTODOS CON VERBOS, ESTÁ DESTINADA A
+    CUANDO EL USUARIO MANIPULA DIRECTO DESDE EL PANEL EN LA PNATALLA INCIAL*/
     public void productoEnCarrito(){
         if(this.baseDatos.estaEnCarrito(this.codigoProducto)){
             this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
@@ -62,7 +67,64 @@ public class Product extends javax.swing.JPanel {
         this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
         this.jtbtnCarrito.setSelected(false);
     }
-
+    
+    public void productoEnFavoritos(){
+        if(this.baseDatosFavoritos.isFavorito(this.codigoProducto)){
+            this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+            this.jtbtnFavorito.setSelected(true);
+        }
+    }
+    
+    public void productoRetiradoFavoritos(){
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+        this.jtbtnFavorito.setSelected(false);
+    }
+    //FIN ACTUALIZACIÓN VENTANA EMERGENTE
+    
+    private void agregarAlCarrito(){
+        if(this.jtbtnFavorito.isSelected()){
+            this.retirarFavoritos();
+        }
+        this.baseDatos.createProductoCarrito(this.codigoProducto);
+        if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible()){
+                Carrito.productosCarrito.initPanelProductos();
+            }
+        this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+    }
+    
+    private void retirarDelCarrito(){
+        int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+        if(unidades == -1){
+            return;
+        }
+        this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+        if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible() ){
+            Carrito.productosCarrito.initPanelProductos();
+        }
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+        this.jtbtnCarrito.setSelected(false);
+    }
+    
+    private void agregarFavoritos(){
+        if(this.jtbtnCarrito.isSelected()){
+            this.retirarDelCarrito();
+        }
+        this.baseDatosFavoritos.createProductoFavorito(this.codigoProducto);
+            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+                Favoritos.productosFavoritos.initPanelProductos();
+            }
+        this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+    }
+    
+    private void retirarFavoritos(){
+        this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
+        if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+            Favoritos.productosFavoritos.initPanelProductos();
+        }
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+        this.jtbtnFavorito.setSelected(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,22 +209,10 @@ public class Product extends javax.swing.JPanel {
 
     private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
         if(this.jtbtnCarrito.isSelected()&& this.validateLogged()){
-            this.baseDatos.createProductoCarrito(this.codigoProducto);
-            if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible()){
-                Carrito.productosCarrito.initPanelProductos();
-            }
-            this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+            this.agregarAlCarrito();
             return;
         } else if(!this.jtbtnCarrito.isSelected() && this.validateLogged()){
-           int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
-            if(unidades == -1){
-                return;
-            }
-            this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
-            if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible() ){
-                Carrito.productosCarrito.initPanelProductos();
-            }
-            this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+            this.retirarDelCarrito();
             return;
         }
         this.jtbtnCarrito.setSelected(false);
@@ -170,19 +220,10 @@ public class Product extends javax.swing.JPanel {
 
     private void jtbtnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnFavoritoActionPerformed
         if(this.jtbtnFavorito.isSelected() && this.validateLogged()){
-            this.baseDatosFavoritos.createProductoFavorito(this.codigoProducto);
-            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
-                Favoritos.productosFavoritos.initPanelProductos();
-            }
-            this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+            this.agregarFavoritos();
             return;
         } else if(!this.jtbtnFavorito.isSelected() && this.validateLogged()){
-
-            this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
-            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
-                Favoritos.productosFavoritos.initPanelProductos();
-            }
-            this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+            this.retirarFavoritos();
             return;
         }
         this.jtbtnFavorito.setSelected(false);
