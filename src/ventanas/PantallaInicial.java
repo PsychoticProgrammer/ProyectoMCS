@@ -26,6 +26,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
+        this.desactivarBotonesAdmin();
         GraphicsEnvironment env =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -84,13 +85,15 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnChgDatos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jlblCarrito = new javax.swing.JLabel();
+        btnAgrAdm = new javax.swing.JButton();
+        btnPrdDev = new javax.swing.JButton();
         btnLog = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -213,6 +216,30 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
 
+        btnAgrAdm.setBackground(new java.awt.Color(51, 51, 51));
+        btnAgrAdm.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        btnAgrAdm.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgrAdm.setText("Agregar admin");
+        btnAgrAdm.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAgrAdm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgrAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgrAdmActionPerformed(evt);
+            }
+        });
+
+        btnPrdDev.setBackground(new java.awt.Color(51, 51, 51));
+        btnPrdDev.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        btnPrdDev.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrdDev.setText("Productos devueltos");
+        btnPrdDev.setBorder(null);
+        btnPrdDev.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrdDev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrdDevActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -220,7 +247,11 @@ public class PantallaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1032, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 644, Short.MAX_VALUE)
+                .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,12 +265,17 @@ public class PantallaInicial extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(18, 18, 18)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -256,7 +292,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLog);
-        btnLog.setBounds(1780, 100, 120, 33);
+        btnLog.setBounds(1770, 100, 120, 36);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
         jLabel4.setText("¡Productos para todos!");
@@ -279,12 +315,13 @@ public class PantallaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void imgLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgLogMouseClicked
-        if(btnLog.isVisible())
-            btnLog.setVisible(false);
-        else
+        if(btnLog.isVisible()){
+            btnLog.setVisible(false);         
+        }else{
             btnLog.setVisible(true);
+        }
     }//GEN-LAST:event_imgLogMouseClicked
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -317,12 +354,18 @@ public class PantallaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChgDatosActionPerformed
 
+    private void jlblCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblCarritoMouseClicked
+        Carrito cr = new Carrito();
+        cr.setVisible(true);
+    }//GEN-LAST:event_jlblCarritoMouseClicked
+
     private void btnLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogActionPerformed
         if(logged){
             loggedClient = null;
             this.logged = false;
             this.cambiarTextLogBtn();
             this.repaint();
+            this.desactivarBotonesAdmin();
             return;
         }
         this.setVisible(false);
@@ -330,10 +373,27 @@ public class PantallaInicial extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_btnLogActionPerformed
 
-    private void jlblCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblCarritoMouseClicked
-        Carrito cr = new Carrito();
-        cr.setVisible(true);
-    }//GEN-LAST:event_jlblCarritoMouseClicked
+    public void activarBotonesAdmin(){
+        this.btnPrdDev.setVisible(true);
+        this.btnAgrAdm.setVisible(true);
+    }
+    
+    public void desactivarBotonesAdmin(){
+        this.btnPrdDev.setVisible(false);
+        this.btnAgrAdm.setVisible(false);
+    }
+    
+    private void btnAgrAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgrAdmActionPerformed
+        if(RegistroForm.registro == null){
+            RegistroForm.registro = new RegistroForm();
+        }
+        this.setVisible(false);
+        RegistroForm.registro.setVisible(true);
+    }//GEN-LAST:event_btnAgrAdmActionPerformed
+
+    private void btnPrdDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrdDevActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrdDevActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -368,9 +428,11 @@ public class PantallaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgrAdm;
     private javax.swing.JButton btnChgDatos;
     private javax.swing.JButton btnLog;
     private javax.swing.JButton btnPedidos;
+    private javax.swing.JButton btnPrdDev;
     private javax.swing.JLabel imgLog;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

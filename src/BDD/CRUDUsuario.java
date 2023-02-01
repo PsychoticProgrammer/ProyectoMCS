@@ -15,10 +15,10 @@ public class CRUDUsuario {
     }
     
     public boolean createUsuario(String cedula, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password,String tarjeta){
+            String telefono, String correo, String password,String tarjeta, String perfil){
         try{
             this.ps = this.conexion.getConnection().prepareStatement("INSERT INTO PERSONAS (ID_PER,NOM_PER,APE_PER,"+
-                    "DIR_PER,TEL_PER,COR_PER,CONTR_PER,PERFIL,NUM_TAR_CLI,MON_CLI) VALUES(?,?,?,?,?,?,?,'C',?,0);");
+                    "DIR_PER,TEL_PER,COR_PER,CONTR_PER,PERFIL,NUM_TAR_CLI,MON_CLI) VALUES(?,?,?,?,?,?,?,?,?,0);");
             this.ps.setString(1,cedula);
             this.ps.setString(2,nombre);
             this.ps.setString(3,apellido);
@@ -26,7 +26,8 @@ public class CRUDUsuario {
             this.ps.setString(5,telefono);
             this.ps.setString(6,correo);
             this.ps.setString(7,password);
-            this.ps.setString(8, tarjeta);
+            this.ps.setString(8, perfil);
+            this.ps.setString(9, tarjeta);
             
             this.ps.executeUpdate();
             return true;
@@ -49,7 +50,7 @@ public class CRUDUsuario {
             this.rs = this.ps.executeQuery();
             this.rs.next();
             return new Cliente(this.rs.getString(1),this.rs.getString(2),this.rs.getString(3),
-                    this.rs.getString(4),this.rs.getString(5),this.rs.getString(6),this.rs.getString(8));
+                    this.rs.getString(4),this.rs.getString(5),this.rs.getString(6),this.rs.getString(7),this.rs.getString(8));
         }catch(Exception e){
             System.out.println(e);
             return null;

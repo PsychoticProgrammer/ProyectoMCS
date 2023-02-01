@@ -12,8 +12,8 @@ public class Cliente extends Usuario{
     private ArrayList<Integer> carrito;
     
     public Cliente(String cedula, String nombre, String apellido, String direccion,
-            String telefono, String correo,/*float monedero,*/ String tarjeta){
-        super(cedula,nombre,apellido,direccion,telefono,correo);
+            String telefono, String correo, String perfil,/*float monedero,*/ String tarjeta){
+        super(cedula,nombre,apellido,direccion,telefono,correo,perfil);
         //this.monedero = monedero;
         this.tarjetaCredito = tarjeta;
         this.carrito = new ArrayList();

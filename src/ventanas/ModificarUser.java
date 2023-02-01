@@ -4,13 +4,9 @@ import BDD.CRUDUsuario;
 import Clases.Cliente;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
 public class ModificarUser extends javax.swing.JFrame {
 
-    public Cliente loggedClient;
+    private Cliente loggedClient;
     
     public ModificarUser() {
         initComponents();

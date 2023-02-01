@@ -140,6 +140,10 @@ public class Login extends javax.swing.JFrame {
         PantallaInicial.pantallaInicial.setVisible(true);
         PantallaInicial.pantallaInicial.setCarritoVisible(true);
         PantallaInicial.loggedClient = client;
+        if(client.getPerfil().equals("A")) {
+            PantallaInicial.pantallaInicial.activarBotonesAdmin();
+            RegistroForm.perfil = "A";
+        }
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
             p.productoEnCarrito();
@@ -147,8 +151,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        if(RegistroForm.registro == null)
+        if(RegistroForm.registro == null){
+            RegistroForm.perfil = "C";
             RegistroForm.registro = new RegistroForm();
+        }
         this.setVisible(false);
         RegistroForm.registro.setVisible(true);
     }//GEN-LAST:event_btnRegistroActionPerformed

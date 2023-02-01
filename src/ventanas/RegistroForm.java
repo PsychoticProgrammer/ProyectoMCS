@@ -5,9 +5,9 @@ import BDD.CRUDUsuario;
 import BDD.Conexion;
 import javax.swing.JOptionPane;
 
-//PROTOTIPO INICIAL  --- BORRAR CUANDO SE CORRIJAN LA CANTIDAD DE CAMPOS SOLICITADOS
 public class RegistroForm extends javax.swing.JFrame {
     public static RegistroForm registro;
+    public static String perfil;
     
     public RegistroForm() {
         initComponents();
@@ -221,7 +221,7 @@ public class RegistroForm extends javax.swing.JFrame {
 
     private void volverMain(){
         this.setVisible(false);
-        //Login.login.setVisible(true);
+        PantallaInicial.pantallaInicial.setVisible(true);
     }
     
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -246,7 +246,7 @@ public class RegistroForm extends javax.swing.JFrame {
         ingEmail.setText(null);
         ingPass.setText(null);
         ingTar.setText(null);
-        if(dm.createUsuario(ced,nombre, apellido, dir, tel, email, pass, tarjeta)){
+        if(dm.createUsuario(ced,nombre, apellido, dir, tel, email, pass, tarjeta,this.perfil)){
             JOptionPane.showMessageDialog(rootPane, "Datos guardados correctamente");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Los datos no se han guardado");
