@@ -387,6 +387,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         if(RegistroForm.registro == null){
             RegistroForm.registro = new RegistroForm();
         }
+        RegistroForm.registro.perfil = "A";
         this.setVisible(false);
         RegistroForm.registro.setVisible(true);
     }//GEN-LAST:event_btnAgrAdmActionPerformed
