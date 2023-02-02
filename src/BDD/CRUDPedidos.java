@@ -35,7 +35,7 @@ public class CRUDPedidos {
     public ArrayList<ArrayList<String[]>> getPedidos(String cedula){
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""
-                    SELECT PE.NUM_PED, PE.FEC_PED, PE.EST_PED, PE.TOTAL
+                    SELECT PE.NUM_PED, PE.FEC_PED, PE.EST_PED, PE.TOTAL, DEV_EST
                     FROM PEDIDOS PE
                     WHERE PE.ID_USU_PED = ?""");
             this.ps.setString(1,cedula);
@@ -45,12 +45,13 @@ public class CRUDPedidos {
             this.rs = this.ps.executeQuery();
             while(this.rs.next()){
                 ArrayList<String[]> auxiliarDatos = new ArrayList<>();
-                String datosPedido[] = new String[4];
+                String datosPedido[] = new String[5];
                 
                 datosPedido[0] = this.rs.getString(1);
                 datosPedido[1] = this.rs.getString(2);
                 datosPedido[2] = this.rs.getString(3);
                 datosPedido[3] = this.rs.getString(4);
+                datosPedido[4] = this.rs.getString(5);
                 
                 auxiliarDatos.add(datosPedido);
                 ArrayList<String[]> detalles = getDetallesProducto(cedula, datosPedido[0]);
