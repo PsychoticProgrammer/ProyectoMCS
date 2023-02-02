@@ -140,6 +140,11 @@ public class Pedidos extends javax.swing.JPanel {
         jbtnRechazar.setForeground(new java.awt.Color(0, 0, 0));
         jbtnRechazar.setText("Rechazar");
         jbtnRechazar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnRechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRechazarActionPerformed(evt);
+            }
+        });
 
         jbtnSolicitar.setBackground(new java.awt.Color(51, 51, 255));
         jbtnSolicitar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
@@ -243,7 +248,14 @@ public class Pedidos extends javax.swing.JPanel {
     private void jbtnSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSolicitarMouseClicked
         CRUDPedidos cp = new CRUDPedidos();
         cp.setSolicitudDevolucion(this.numPedidoText.getText());
+        PantallaInicial.pantallaInicial.generarPedidos();
     }//GEN-LAST:event_jbtnSolicitarMouseClicked
+
+    private void jbtnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRechazarActionPerformed
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setDevolucionRechazada(this.numPedidoText.getText());
+        PantallaInicial.pantallaInicial.generarPedidos();
+    }//GEN-LAST:event_jbtnRechazarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

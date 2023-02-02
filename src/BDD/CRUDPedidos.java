@@ -157,6 +157,18 @@ public class CRUDPedidos {
         }
     }
     
+    public void setDevolucionRechazada(String numeroPedido){
+        PreparedStatement ps;
+        try{
+            ps = this.conexion.getConnection().prepareStatement("""
+                    UPDATE PEDIDOS SET DEV_EST = 'N' WHERE NUM_PED = ?""");
+            ps.setString(1, numeroPedido);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+    
     public ArrayList<ArrayList<String[]>> getPedidosAdmin(){
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""

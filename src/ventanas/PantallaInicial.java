@@ -290,6 +290,10 @@ public class PantallaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+        generarPedidos();
+    }//GEN-LAST:event_btnPedidosActionPerformed
+    
+    public void generarPedidos(){
         if(logged){            
             CRUDPedidos cp = new CRUDPedidos();
             
@@ -319,8 +323,9 @@ public class PantallaInicial extends javax.swing.JFrame {
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
         }
-    }//GEN-LAST:event_btnPedidosActionPerformed
-
+    }
+    
+    
     private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         if(logged){
             ModificarUser mod=new ModificarUser();
