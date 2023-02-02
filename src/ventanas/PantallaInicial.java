@@ -320,14 +320,28 @@ public class PantallaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        if(logged){
+        generarPedidos();
+    }//GEN-LAST:event_btnPedidosActionPerformed
+    
+    public void generarPedidos(){
+        if(logged){            
             CRUDPedidos cp = new CRUDPedidos();
-            this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
+            
+            if(PantallaInicial.loggedClient.getPerfil().equals("C"))
+                this.numeroFilas = cp.numeroPedidosCliente(PantallaInicial.loggedClient.getCedula());
+            else
+                this.numeroFilas = cp.numeroPedidosAdmin();
+            
             this.jpnlProductos.removeAll();
             if(this.numeroFilas != 0){
-                ArrayList<ArrayList<String[]>> detallesPedidos = cp.getPedidos(PantallaInicial.loggedClient.getCedula());
-                for (int i = 0; i < detallesPedidos.size(); i++) {                    
-                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i)));
+                ArrayList<ArrayList<String[]>> detallesPedidos;
+                if(PantallaInicial.loggedClient.getPerfil().equals("C"))
+                    detallesPedidos = cp.getPedidosCliente(PantallaInicial.loggedClient.getCedula());
+                else
+                    detallesPedidos = cp.getPedidosAdmin();
+                for (int i = 0; i < detallesPedidos.size(); i++) {
+                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i),
+                                                        PantallaInicial.loggedClient.getPerfil()));
                 }
             }else{
                 this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
@@ -339,8 +353,9 @@ public class PantallaInicial extends javax.swing.JFrame {
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
         }
-    }//GEN-LAST:event_btnPedidosActionPerformed
-
+    }
+    
+    
     private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         if(logged){
             ModificarUser mod=new ModificarUser();
