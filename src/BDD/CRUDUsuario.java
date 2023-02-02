@@ -51,6 +51,8 @@ public class CRUDUsuario {
             this.rs.next();
             return new Cliente(this.rs.getString(1),this.rs.getString(2),this.rs.getString(3),
                     this.rs.getString(4),this.rs.getString(5),this.rs.getString(6),this.rs.getString(7),this.rs.getString(8));
+                    this.rs.getString(4),this.rs.getString(5),this.rs.getString(6),
+                    this.rs.getString(9),this.rs.getString(8),this.rs.getString(7));
         }catch(Exception e){
             System.out.println(e);
             return null;

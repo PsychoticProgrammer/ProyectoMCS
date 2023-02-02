@@ -4,6 +4,7 @@ package ventanas;
 import BDD.CRUDPedidos;
 import Soporte.Dialogs;
 import Carrito.Carrito;
+import Carrito.Favoritos;
 import Clases.Cliente;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -22,7 +23,6 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
-        this.jlblCarrito.setVisible(false);
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
@@ -34,11 +34,20 @@ public class PantallaInicial extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("EMPRESA S.A.");
         this.setIconImage(new ImageIcon(this.getClass().getResource("/images/icono.png")).getImage());
+        this.setLabelImage(this.imgLog,"/images/user.png");
+        this.setLabelImage(this.logoPrin,"/images/logoPrincipal.png");
+        this.btnLog.setVisible(false);
+        this.setLabelImage(this.logoPrin,"/images/logoPrincipal.png");
+        this.setLabelImage(this.jlblCarrito,"/images/carrito.jpg");
+        this.jlblCarrito.setVisible(false);
+        this.setLabelImage(this.jlblFavoritos,"/images/favorito.png");
+        this.jlblFavoritos.setVisible(false);
+        panels();
         
-        ImageIcon imagenLog= new ImageIcon(this.getClass().getResource("/images/user.png"));
+        /*ImageIcon imagenLog= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgLog.setIcon(new ImageIcon(imagenLog.getImage().
                 getScaledInstance(imgLog.getWidth(),imgLog.getHeight(), Image.SCALE_DEFAULT)));
-        btnLog.setVisible(false);
+        
         
         ImageIcon logo= new ImageIcon(this.getClass().getResource("/images/logoPrincipal.png"));
         this.logoPrin.setIcon(new ImageIcon(logo.getImage().
@@ -47,13 +56,23 @@ public class PantallaInicial extends javax.swing.JFrame {
         ImageIcon carrito= new ImageIcon(this.getClass().getResource("/images/carrito.jpg"));
         this.jlblCarrito.setIcon(new ImageIcon(carrito.getImage().
                 getScaledInstance(jlblCarrito.getWidth(),jlblCarrito.getHeight(), Image.SCALE_DEFAULT)));
-        panels();
+        */
                 
-        this.repaint();  
+        //this.repaint();  
+    }
+    
+    private void setLabelImage(JLabel target, String path){
+        ImageIcon image = new ImageIcon(this.getClass().getResource(path));
+        target.setIcon(new ImageIcon(image.getImage().
+                getScaledInstance(target.getWidth(),target.getHeight(),Image.SCALE_SMOOTH)));
     }
     
     public void setCarritoVisible(boolean isVisible){
         this.jlblCarrito.setVisible(isVisible);
+    }
+    
+    public void setFavoritosVisible(boolean isVisible){
+        this.jlblFavoritos.setVisible(isVisible);
     }
     
     public void panels(){
@@ -94,6 +113,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         jlblCarrito = new javax.swing.JLabel();
         btnAgrAdm = new javax.swing.JButton();
         btnPrdDev = new javax.swing.JButton();
+        jlblFavoritos = new javax.swing.JLabel();
         btnLog = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -237,6 +257,9 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnPrdDev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrdDevActionPerformed(evt);
+        jlblFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblFavoritosMouseClicked(evt);
             }
         });
 
@@ -247,8 +270,8 @@ public class PantallaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 644, Short.MAX_VALUE)
-                .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 958, Short.MAX_VALUE)
+                .addComponent(jlblFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -270,7 +293,9 @@ public class PantallaInicial extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jlblCarrito, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                .addComponent(jlblFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -327,26 +352,42 @@ public class PantallaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        if(logged){
+        generarPedidos();
+    }//GEN-LAST:event_btnPedidosActionPerformed
+    
+    public void generarPedidos(){
+        if(logged){            
             CRUDPedidos cp = new CRUDPedidos();
-            this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
+            
+            if(PantallaInicial.loggedClient.getPerfil().equals("C"))
+                this.numeroFilas = cp.numeroPedidosCliente(PantallaInicial.loggedClient.getCedula());
+            else
+                this.numeroFilas = cp.numeroPedidosAdmin();
+            
             this.jpnlProductos.removeAll();
             if(this.numeroFilas != 0){
-                ArrayList<ArrayList<String[]>> detallesPedidos = cp.getPedidos(PantallaInicial.loggedClient.getCedula());
-                for (int i = 0; i < detallesPedidos.size(); i++) {                    
-                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i)));
+                ArrayList<ArrayList<String[]>> detallesPedidos;
+                if(PantallaInicial.loggedClient.getPerfil().equals("C"))
+                    detallesPedidos = cp.getPedidosCliente(PantallaInicial.loggedClient.getCedula());
+                else
+                    detallesPedidos = cp.getPedidosAdmin();
+                for (int i = 0; i < detallesPedidos.size(); i++) {
+                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i),
+                                                        PantallaInicial.loggedClient.getPerfil()));
                 }
             }else{
                 this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
             }                
             this.jpnlProductos.revalidate();
             this.jpnlProductos.repaint();
-            this.repaint();                
+            this.repaint();
+            
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
         }
-    }//GEN-LAST:event_btnPedidosActionPerformed
-
+    }
+    
+    
     private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         if(logged){
             ModificarUser mod=new ModificarUser();
@@ -395,6 +436,11 @@ public class PantallaInicial extends javax.swing.JFrame {
     private void btnPrdDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrdDevActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrdDevActionPerformed
+
+    private void jlblFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblFavoritosMouseClicked
+        Favoritos fav = new Favoritos();
+        fav.setVisible(true);
+    }//GEN-LAST:event_jlblFavoritosMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -445,6 +491,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlblCarrito;
+    private javax.swing.JLabel jlblFavoritos;
     private javax.swing.JPanel jpnlProductos;
     private javax.swing.JLabel logoPrin;
     // End of variables declaration//GEN-END:variables

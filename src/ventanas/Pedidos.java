@@ -4,6 +4,7 @@
  */
 package ventanas;
 
+import BDD.CRUDPedidos;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -17,12 +18,21 @@ public class Pedidos extends javax.swing.JPanel {
     /**
      * Creates new form Pedidos
      */
-    public Pedidos(ArrayList<String[]> pedido) {
+    
+    public ArrayList<String[]> pedido;
+    
+    public Pedidos(ArrayList<String[]> pedido, String perfil) {
         initComponents();
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
+        this.pedido = pedido;
         setProducto(pedido);
+        if(perfil.equals("C")){
+            this.jbtnAceptar.setVisible(false);
+            this.jbtnRechazar.setVisible(false);
+        }else
+            this.jbtnSolicitar.setVisible(false);
         this.repaint();
     }
     
@@ -31,7 +41,13 @@ public class Pedidos extends javax.swing.JPanel {
         this.fechaText.setText(pedido.get(0)[1]);
         this.estadoText.setText(pedido.get(0)[2]);
         this.totalText.setText("$" + pedido.get(0)[3]);
-        
+        if(pedido.get(0)[4].equals("E") || pedido.get(0)[4].equals("N")){
+            this.jbtnSolicitar.setEnabled(false);
+            if(pedido.get(0)[4].equals("N"))
+                this.jbtnSolicitar.setText("Rechazada");
+            else
+                this.jbtnSolicitar.setText("En espera");
+        }
         String productosDetalles = "";
         for (int i = 1; i < pedido.size(); i++) {
             productosDetalles += "- " + pedido.get(i)[0] + 
@@ -63,6 +79,9 @@ public class Pedidos extends javax.swing.JPanel {
         detalleLabel = new javax.swing.JLabel();
         detalleText = new javax.swing.JLabel();
         detalleLabel1 = new javax.swing.JLabel();
+        jbtnAceptar = new javax.swing.JButton();
+        jbtnRechazar = new javax.swing.JButton();
+        jbtnSolicitar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -114,6 +133,39 @@ public class Pedidos extends javax.swing.JPanel {
         detalleLabel1.setForeground(new java.awt.Color(0, 0, 0));
         detalleLabel1.setText("Subtotal:");
 
+        jbtnAceptar.setBackground(new java.awt.Color(0, 204, 51));
+        jbtnAceptar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jbtnAceptar.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnAceptar.setText("Aceptar");
+        jbtnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAceptarActionPerformed(evt);
+            }
+        });
+
+        jbtnRechazar.setBackground(new java.awt.Color(255, 51, 51));
+        jbtnRechazar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jbtnRechazar.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnRechazar.setText("Rechazar");
+        jbtnRechazar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnRechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRechazarActionPerformed(evt);
+            }
+        });
+
+        jbtnSolicitar.setBackground(new java.awt.Color(51, 51, 255));
+        jbtnSolicitar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jbtnSolicitar.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnSolicitar.setText("Solicitar Devolución");
+        jbtnSolicitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnSolicitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnSolicitarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,19 +174,24 @@ public class Pedidos extends javax.swing.JPanel {
                 .addGap(53, 53, 53)
                 .addComponent(imgPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(numPedidoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numPedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(estadoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fechaLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fechaText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnSolicitar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtnAceptar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(numPedidoLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(numPedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(estadoLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(fechaLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fechaText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -145,13 +202,15 @@ public class Pedidos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(detalleText, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(totalLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(totalText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jbtnRechazar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,14 +238,43 @@ public class Pedidos extends javax.swing.JPanel {
                             .addComponent(detalleLabel)
                             .addComponent(detalleLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(detalleText, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
+                        .addComponent(detalleText, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalLabel)
-                    .addComponent(totalText))
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalLabel)
+                            .addComponent(totalText)
+                            .addComponent(jbtnAceptar)
+                            .addComponent(jbtnRechazar))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jbtnSolicitar)
+                        .addGap(32, 32, 32))))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSolicitarMouseClicked
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setSolicitudDevolucion(this.numPedidoText.getText());
+        PantallaInicial.pantallaInicial.generarPedidos();
+    }//GEN-LAST:event_jbtnSolicitarMouseClicked
+
+    private void jbtnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRechazarActionPerformed
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setDevolucionRechazada(this.numPedidoText.getText());
+        PantallaInicial.pantallaInicial.generarPedidos();
+    }//GEN-LAST:event_jbtnRechazarActionPerformed
+
+    private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setDevolucionAceptada(this.numPedidoText.getText());
+        for (int i = 1; i < pedido.size(); i++) {
+            cp.devolverProductosStock(pedido.get(i)[3], pedido.get(i)[4]);
+        }
+        cp.actualizarMonedero(pedido.get(0)[3], cp.getUsuarioPertenecePedido(pedido.get(0)[0]));
+        PantallaInicial.pantallaInicial.generarPedidos();
+    }//GEN-LAST:event_jbtnAceptarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -198,6 +286,9 @@ public class Pedidos extends javax.swing.JPanel {
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel fechaText;
     private javax.swing.JLabel imgPedido;
+    private javax.swing.JButton jbtnAceptar;
+    private javax.swing.JButton jbtnRechazar;
+    private javax.swing.JButton jbtnSolicitar;
     private javax.swing.JLabel numPedidoLabel;
     private javax.swing.JLabel numPedidoText;
     private javax.swing.JLabel totalLabel;
