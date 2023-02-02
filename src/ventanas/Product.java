@@ -13,11 +13,16 @@ import java.sql.ResultSet;
 public class Product extends javax.swing.JPanel {
 
     private CRUDCarrito baseDatos;
-    private String codigoProducto;
+    private int codigoProducto;
+    private String nombre, descripcion,precio,unidadesDisponibles;
     
-    public Product(String codigoProducto) {
+    public Product(int codigoProducto,String nombre,String precio,String descripcion,String unidadesDisponibles ) {
         initComponents();
         this.codigoProducto = codigoProducto;
+        this.nombre=nombre;
+        this.precio=precio;
+        this.descripcion=descripcion;
+        this.unidadesDisponibles=unidadesDisponibles;
         this.baseDatos = new CRUDCarrito();
         ImageIcon imagenPro= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().

@@ -3,11 +3,11 @@ package Clases;
 
 public class Producto {
     
-    private int  unidadesDisponibles;
+    private int codigo, unidadesDisponibles;
     private float precio;
-    private String nombre, descripcion,codigo, imagen1, imagen2, imagen3;
+    private String nombre, descripcion, imagen1, imagen2, imagen3;
     
-    public Producto(String codigo, String nombre, float precio, String descripcion,
+    public Producto(int codigo, String nombre, float precio, String descripcion,
             int unidadesDisponibles, String imagen1, String imagen2, String imagen3, int indicePanelPadre){
         this.codigo = codigo;
         this.nombre = nombre;
@@ -19,7 +19,7 @@ public class Producto {
         this.imagen2 = imagen3;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return this.codigo;
     }
 
@@ -39,7 +39,7 @@ public class Producto {
         return this.descripcion;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
