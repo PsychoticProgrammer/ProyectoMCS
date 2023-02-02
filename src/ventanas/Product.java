@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 public class Product extends javax.swing.JPanel {
 
     private CRUDCarrito baseDatos;
-    private CRUDProducto dataPro;
+    //private CRUDProducto dataPro;
     private int codigoProducto;
     private String nombre, descripcion,precio,unidadesDisponibles;
     
@@ -160,10 +160,16 @@ public class Product extends javax.swing.JPanel {
     }//GEN-LAST:event_jtbtnCarritoActionPerformed
 
     private void imagenProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenProductoMouseClicked
-        System.out.printf("holaaaa");
+       
         PantallaInicial.pantallaInicial.jpnlProductos.removeAll();
+        PantallaInicial.pantallaInicial.jpnlProductos.add(new DecripProducto(this.codigoProducto,
+                                                                    this.nombre,
+                                                                    this.precio,
+                                                                    this.descripcion,
+                                                                    this.unidadesDisponibles));
         PantallaInicial.pantallaInicial.jpnlProductos.validate();
         PantallaInicial.pantallaInicial.jpnlProductos.repaint();
+        
     }//GEN-LAST:event_imagenProductoMouseClicked
 
 
