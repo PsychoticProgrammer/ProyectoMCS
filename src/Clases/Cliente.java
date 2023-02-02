@@ -9,7 +9,7 @@ public class Cliente extends Usuario{
     private String perfil;
     private float monedero;
     private String tarjetaCredito;
-    private ArrayList<Integer> carrito;
+    private ArrayList<Integer> carrito, favoritos;
     
     public Cliente(String cedula, String nombre, String apellido, String direccion,
             String telefono, String correo,String monedero, String tarjeta, String perfil){
@@ -18,6 +18,7 @@ public class Cliente extends Usuario{
         this.perfil = perfil;
         this.tarjetaCredito = tarjeta;
         this.carrito = new ArrayList();
+        this.favoritos = new ArrayList();
     }
 
     public float getMonedero() {
@@ -32,6 +33,10 @@ public class Cliente extends Usuario{
         return this.carrito;
     }
 
+    public ArrayList<Integer> getFavoritos(){
+        return this.favoritos;
+    }
+    
     public void setMonedero(float monedero) {
         this.monedero = monedero;
     }
@@ -51,6 +56,8 @@ public class Cliente extends Usuario{
     public void setPerfil(String perfil) {
         this.perfil = perfil;
     }
-    
-    
+  
+    public void setProductoFavorito(int codigoFavorito){
+        this.favoritos.add(codigoFavorito);
+    }
 }
