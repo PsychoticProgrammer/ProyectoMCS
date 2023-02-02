@@ -6,15 +6,16 @@ import java.util.ArrayList;
 public class Cliente extends Usuario{
     
     //HASTA QUE NO SE IMPLEMENTE COMO CAMBIO EL MONEDERO, DEBE ESTAR COMENTADO LO QUE ESTA COMENTADO
-
+    private String perfil;
     private float monedero;
     private String tarjetaCredito;
     private ArrayList<Integer> carrito;
     
     public Cliente(String cedula, String nombre, String apellido, String direccion,
-            String telefono, String correo,float monedero, String tarjeta){
+            String telefono, String correo,String monedero, String tarjeta, String perfil){
         super(cedula,nombre,apellido,direccion,telefono,correo);
-        this.monedero = monedero;
+        this.monedero = Float.parseFloat(monedero);
+        this.perfil = perfil;
         this.tarjetaCredito = tarjeta;
         this.carrito = new ArrayList();
     }
@@ -42,4 +43,14 @@ public class Cliente extends Usuario{
     public void setProductoCarrito(int codigoProducto){
         this.carrito.add(codigoProducto);
     }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+    
+    
 }

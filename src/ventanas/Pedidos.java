@@ -17,12 +17,16 @@ public class Pedidos extends javax.swing.JPanel {
     /**
      * Creates new form Pedidos
      */
-    public Pedidos(ArrayList<String[]> pedido) {
+    public Pedidos(ArrayList<String[]> pedido, String perfil) {
         initComponents();
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
         setProducto(pedido);
+        if(perfil.equals("C")){
+            this.jbtnAceptar.setVisible(false);
+            this.jbtnRechazar.setVisible(false);
+        }
         this.repaint();
     }
     
@@ -63,6 +67,8 @@ public class Pedidos extends javax.swing.JPanel {
         detalleLabel = new javax.swing.JLabel();
         detalleText = new javax.swing.JLabel();
         detalleLabel1 = new javax.swing.JLabel();
+        jbtnAceptar = new javax.swing.JButton();
+        jbtnRechazar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -114,27 +120,40 @@ public class Pedidos extends javax.swing.JPanel {
         detalleLabel1.setForeground(new java.awt.Color(0, 0, 0));
         detalleLabel1.setText("Subtotal:");
 
+        jbtnAceptar.setBackground(new java.awt.Color(0, 204, 51));
+        jbtnAceptar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jbtnAceptar.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnAceptar.setText("Aceptar");
+
+        jbtnRechazar.setBackground(new java.awt.Color(255, 51, 51));
+        jbtnRechazar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jbtnRechazar.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnRechazar.setText("Rechazar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(imgPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbtnAceptar)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(numPedidoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numPedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(estadoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fechaLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fechaText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(imgPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(numPedidoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(numPedidoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(estadoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(estadoText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fechaLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaText, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -145,13 +164,15 @@ public class Pedidos extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(detalleText, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(totalLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(totalText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jbtnRechazar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,11 +200,13 @@ public class Pedidos extends javax.swing.JPanel {
                             .addComponent(detalleLabel)
                             .addComponent(detalleLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(detalleText, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
+                        .addComponent(detalleText, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalLabel)
-                    .addComponent(totalText))
+                    .addComponent(totalText)
+                    .addComponent(jbtnAceptar)
+                    .addComponent(jbtnRechazar))
                 .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -198,6 +221,8 @@ public class Pedidos extends javax.swing.JPanel {
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel fechaText;
     private javax.swing.JLabel imgPedido;
+    private javax.swing.JButton jbtnAceptar;
+    private javax.swing.JButton jbtnRechazar;
     private javax.swing.JLabel numPedidoLabel;
     private javax.swing.JLabel numPedidoText;
     private javax.swing.JLabel totalLabel;
