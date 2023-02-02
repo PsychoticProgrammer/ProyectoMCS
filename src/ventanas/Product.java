@@ -2,6 +2,7 @@
 package ventanas;
 
 import BDD.CRUDCarrito;
+import BDD.CRUDProducto;
 import BDD.Conexion;
 import Carrito.Carrito;
 import Soporte.Dialogs;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 public class Product extends javax.swing.JPanel {
 
     private CRUDCarrito baseDatos;
+    private CRUDProducto dataPro;
     private int codigoProducto;
     private String nombre, descripcion,precio,unidadesDisponibles;
     
@@ -30,7 +32,7 @@ public class Product extends javax.swing.JPanel {
         this.repaint();
     }
     
-    public String getCodigoProducto(){
+    public int getCodigoProducto(){
         return this.getCodigoProducto();
     }
     
@@ -66,6 +68,12 @@ public class Product extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(252, 247, 247));
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        imagenProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagenProductoMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 28)); // NOI18N
         jLabel1.setText("Nombre Producto ");
@@ -150,6 +158,13 @@ public class Product extends javax.swing.JPanel {
         }
         this.jtbtnCarrito.setSelected(false);
     }//GEN-LAST:event_jtbtnCarritoActionPerformed
+
+    private void imagenProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagenProductoMouseClicked
+        System.out.printf("holaaaa");
+        PantallaInicial.pantallaInicial.jpnlProductos.removeAll();
+        PantallaInicial.pantallaInicial.jpnlProductos.validate();
+        PantallaInicial.pantallaInicial.jpnlProductos.repaint();
+    }//GEN-LAST:event_imagenProductoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

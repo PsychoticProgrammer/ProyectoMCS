@@ -36,7 +36,7 @@ public class ItemCarrito extends javax.swing.JPanel {
         this.baseDatos.comprarProductosCarrito(this.codigoProducto,cantidad-1);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
-            if (p.getCodigoProducto() == String.valueOf(this.codigoProducto)){
+            if (p.getCodigoProducto() == this.codigoProducto){
                 p.productoRetiradoCarrito();
                 return;
             }
@@ -120,7 +120,7 @@ public class ItemCarrito extends javax.swing.JPanel {
         this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
-            if(p.getCodigoProducto() == String.valueOf(this.codigoProducto)){
+            if(p.getCodigoProducto() == this.codigoProducto){
                 p.productoRetiradoCarrito();
                 this.padre.initPanelProductos();
                 return;

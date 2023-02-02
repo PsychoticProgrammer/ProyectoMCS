@@ -20,7 +20,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     int numeroFilas = 5; //Se obtendrá: (total de productos a mostrar) dividido para 3
     public static Cliente loggedClient;
     public static JPanel panelProductos;
-    public static JPanel panelDescripProductos;
+    
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
@@ -60,7 +60,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     public void panels(){
         CRUDProducto cp = new CRUDProducto();
-        ArrayList <ArrayList> productosList =cp.getProuctos();
+        ArrayList <ArrayList> productosList =cp.getProductos();
         for (int i = 0; i < productosList.size(); i++) {
         jpnlProductos.add(new Product(Integer.parseInt((String)productosList.get(i).get(0)),
                                     (String)productosList.get(i).get(1),
@@ -93,8 +93,8 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnChgDatos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
@@ -253,7 +253,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(380, 0, 1540, 90);
+        jPanel3.setBounds(380, 0, 1540, 95);
 
         btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.setFont(new java.awt.Font("Cantarell", 1, 22)); // NOI18N
@@ -265,7 +265,7 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLog);
-        btnLog.setBounds(1780, 100, 120, 33);
+        btnLog.setBounds(1780, 100, 120, 37);
 
         jLabel4.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 56)); // NOI18N
         jLabel4.setText("¡Productos para todos!");
@@ -396,7 +396,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlblCarrito;
-    private javax.swing.JPanel jpnlProductos;
+    public static javax.swing.JPanel jpnlProductos;
     private javax.swing.JLabel logoPrin;
     // End of variables declaration//GEN-END:variables
 }

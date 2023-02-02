@@ -16,7 +16,7 @@ public class CRUDProducto {
         this.conexion = new Conexion();
     }
     
-     public ArrayList<ArrayList> getProuctos (){
+     public ArrayList<ArrayList> getProductos (){
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""
                     SELECT *
@@ -39,4 +39,6 @@ public class CRUDProducto {
             return null;
         }
     }
+
+   
 }
