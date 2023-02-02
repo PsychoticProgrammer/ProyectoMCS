@@ -36,7 +36,8 @@ public class Pedidos extends javax.swing.JPanel {
         this.fechaText.setText(pedido.get(0)[1]);
         this.estadoText.setText(pedido.get(0)[2]);
         this.totalText.setText("$" + pedido.get(0)[3]);
-        
+        if(pedido.get(0)[4].equals("S"))
+            this.jbtnSolicitar.setEnabled(false);
         String productosDetalles = "";
         for (int i = 1; i < pedido.size(); i++) {
             productosDetalles += "- " + pedido.get(i)[0] + 

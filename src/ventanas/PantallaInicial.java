@@ -296,8 +296,10 @@ public class PantallaInicial extends javax.swing.JFrame {
             this.jpnlProductos.removeAll();
             if(this.numeroFilas != 0){
                 ArrayList<ArrayList<String[]>> detallesPedidos = cp.getPedidos(PantallaInicial.loggedClient.getCedula());
-                for (int i = 0; i < detallesPedidos.size(); i++) {                    
-                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i), PantallaInicial.loggedClient.getPerfil()));
+                for (int i = 0; i < detallesPedidos.size(); i++) {
+                    if(!detallesPedidos.get(i).get(0)[4].equals("N"))
+                        this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i),
+                                                            PantallaInicial.loggedClient.getPerfil()));
                 }
             }else{
                 this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
