@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import ventanas.PantallaInicial;
 
 public class CRUDPedidos {
     private Conexion conexion;
@@ -120,7 +121,7 @@ public class CRUDPedidos {
         ResultSet rs;
         try{
             ps = this.conexion.getConnection().prepareStatement("""
-                    SELECT PR.NOM_PRO, PR.DES_PRO, PR.PRE_PRO, D.CAN_PRO_PED
+                    SELECT PR.NOM_PRO, PR.DES_PRO, PR.PRE_PRO, D.CAN_PRO_PED, PR.COD_PRO
                     FROM PEDIDOS PE, PRODUCTOS PR, DETALLE_PEDIDO D
                     WHERE PE.NUM_PED = D.NUM_PED_PER
                     AND PR.COD_PRO = D.ID_PRO_PED
@@ -131,11 +132,12 @@ public class CRUDPedidos {
             
             rs = ps.executeQuery();
             while(rs.next()){
-                String datosDetalle[] = new String[4];
+                String datosDetalle[] = new String[5];
                 datosDetalle[0] = rs.getString(1);
                 datosDetalle[1] = rs.getString(2);
                 datosDetalle[2] = rs.getString(3);
                 datosDetalle[3] = rs.getString(4);
+                datosDetalle[4] = rs.getString(5);
                 datosDeVuelta.add(datosDetalle);
             }
             return datosDeVuelta;
@@ -163,6 +165,44 @@ public class CRUDPedidos {
             ps = this.conexion.getConnection().prepareStatement("""
                     UPDATE PEDIDOS SET DEV_EST = 'N' WHERE NUM_PED = ?""");
             ps.setString(1, numeroPedido);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+    
+    public void setDevolucionAceptada(String numeroPedido){
+        PreparedStatement ps;
+        try{
+            ps = this.conexion.getConnection().prepareStatement("""
+                    UPDATE PEDIDOS SET DEV_EST = 'S' WHERE NUM_PED = ?""");
+            ps.setString(1, numeroPedido);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+    
+    public void devolverProductosStock(String cantidad, String codigoProducto){
+        PreparedStatement ps;
+        try{
+            ps = this.conexion.getConnection().prepareStatement("""
+                    UPDATE PRODUCTOS SET UNI_DIS_PRO = UNI_DIS_PRO + ? WHERE COD_PRO = ?""");
+            ps.setString(1, cantidad);
+            ps.setString(2, codigoProducto);            
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+    
+    public void actualizarMonedero(String total, String cedula){
+        PreparedStatement ps;
+        try{
+            ps = this.conexion.getConnection().prepareStatement("""
+                    UPDATE PERSONAS SET MON_CLI = MON_CLI + ? WHERE ID_PER = ?""");
+            ps.setString(1, total);
+            ps.setString(2, cedula);
             ps.executeUpdate();
         }catch(SQLException e){
             System.out.println(e);
@@ -197,6 +237,25 @@ public class CRUDPedidos {
                 todosLosPedidos.add(auxiliarDatos);
             }
             return todosLosPedidos;
+        }catch(SQLException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    
+    public String getUsuarioPertenecePedido(String numPedido){
+        try{
+            this.ps = this.conexion.getConnection().prepareStatement("""
+                    SELECT ID_USU_PED
+                    FROM PEDIDOS
+                    WHERE NUM_PED = ?""");
+            ps.setString(1, numPedido);            
+            this.rs = this.ps.executeQuery();
+            String cedula = "";
+            while(this.rs.next()){
+                cedula = this.rs.getString(1);
+            }
+            return cedula;
         }catch(SQLException e){
             System.out.println(e);
             return null;

@@ -18,11 +18,15 @@ public class Pedidos extends javax.swing.JPanel {
     /**
      * Creates new form Pedidos
      */
+    
+    public ArrayList<String[]> pedido;
+    
     public Pedidos(ArrayList<String[]> pedido, String perfil) {
         initComponents();
         ImageIcon imagenProducto= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imgPedido.setIcon(new ImageIcon(imagenProducto.getImage().
                 getScaledInstance(250, 250, Image.SCALE_DEFAULT)));
+        this.pedido = pedido;
         setProducto(pedido);
         if(perfil.equals("C")){
             this.jbtnAceptar.setVisible(false);
@@ -134,6 +138,11 @@ public class Pedidos extends javax.swing.JPanel {
         jbtnAceptar.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAceptar.setText("Aceptar");
         jbtnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAceptarActionPerformed(evt);
+            }
+        });
 
         jbtnRechazar.setBackground(new java.awt.Color(255, 51, 51));
         jbtnRechazar.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
@@ -256,6 +265,16 @@ public class Pedidos extends javax.swing.JPanel {
         cp.setDevolucionRechazada(this.numPedidoText.getText());
         PantallaInicial.pantallaInicial.generarPedidos();
     }//GEN-LAST:event_jbtnRechazarActionPerformed
+
+    private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setDevolucionAceptada(this.numPedidoText.getText());
+        for (int i = 1; i < pedido.size(); i++) {
+            cp.devolverProductosStock(pedido.get(i)[3], pedido.get(i)[4]);
+        }
+        cp.actualizarMonedero(pedido.get(0)[3], cp.getUsuarioPertenecePedido(pedido.get(0)[0]));
+        PantallaInicial.pantallaInicial.generarPedidos();
+    }//GEN-LAST:event_jbtnAceptarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
