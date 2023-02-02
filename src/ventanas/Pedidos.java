@@ -4,6 +4,7 @@
  */
 package ventanas;
 
+import BDD.CRUDPedidos;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -36,8 +37,13 @@ public class Pedidos extends javax.swing.JPanel {
         this.fechaText.setText(pedido.get(0)[1]);
         this.estadoText.setText(pedido.get(0)[2]);
         this.totalText.setText("$" + pedido.get(0)[3]);
-        if(pedido.get(0)[4].equals("S"))
+        if(pedido.get(0)[4].equals("E") || pedido.get(0)[4].equals("N")){
             this.jbtnSolicitar.setEnabled(false);
+            if(pedido.get(0)[4].equals("N"))
+                this.jbtnSolicitar.setText("Rechazada");
+            else
+                this.jbtnSolicitar.setText("En espera");
+        }
         String productosDetalles = "";
         for (int i = 1; i < pedido.size(); i++) {
             productosDetalles += "- " + pedido.get(i)[0] + 
@@ -140,6 +146,11 @@ public class Pedidos extends javax.swing.JPanel {
         jbtnSolicitar.setForeground(new java.awt.Color(255, 255, 255));
         jbtnSolicitar.setText("Solicitar Devolución");
         jbtnSolicitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnSolicitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnSolicitarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -228,6 +239,11 @@ public class Pedidos extends javax.swing.JPanel {
                         .addGap(32, 32, 32))))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnSolicitarMouseClicked
+        CRUDPedidos cp = new CRUDPedidos();
+        cp.setSolicitudDevolucion(this.numPedidoText.getText());
+    }//GEN-LAST:event_jbtnSolicitarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

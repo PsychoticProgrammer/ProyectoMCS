@@ -98,4 +98,16 @@ public class CRUDPedidos {
             return null;
         }
     }    
+    
+    public void setSolicitudDevolucion(String numeroPedido){
+        PreparedStatement ps;
+        try{
+            ps = this.conexion.getConnection().prepareStatement("""
+                    UPDATE PEDIDOS SET DEV_EST = 'E' WHERE NUM_PED = ?""");
+            ps.setString(1, numeroPedido);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }

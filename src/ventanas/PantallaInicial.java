@@ -84,8 +84,8 @@ public class PantallaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnChgDatos = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
+        btnChgDatos = new javax.swing.JButton();
         logoPrin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         imgLog = new javax.swing.JLabel();
@@ -297,9 +297,8 @@ public class PantallaInicial extends javax.swing.JFrame {
             if(this.numeroFilas != 0){
                 ArrayList<ArrayList<String[]>> detallesPedidos = cp.getPedidos(PantallaInicial.loggedClient.getCedula());
                 for (int i = 0; i < detallesPedidos.size(); i++) {
-                    if(!detallesPedidos.get(i).get(0)[4].equals("N"))
-                        this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i),
-                                                            PantallaInicial.loggedClient.getPerfil()));
+                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i),
+                                                        PantallaInicial.loggedClient.getPerfil()));
                 }
             }else{
                 this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
