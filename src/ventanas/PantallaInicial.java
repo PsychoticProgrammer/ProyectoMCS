@@ -325,23 +325,19 @@ public class PantallaInicial extends javax.swing.JFrame {
             this.numeroFilas = cp.numeroPedidos(PantallaInicial.loggedClient.getCedula());
             this.jpnlProductos.removeAll();
             if(this.numeroFilas != 0){
-                ArrayList<String[]> detallesPedidos = cp.detallesPedidos(PantallaInicial.loggedClient.getCedula());
+                ArrayList<ArrayList<String[]>> detallesPedidos = cp.getPedidos(PantallaInicial.loggedClient.getCedula());
                 for (int i = 0; i < detallesPedidos.size(); i++) {                    
-                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i)[0],
-                                            detallesPedidos.get(i)[1],
-                                            detallesPedidos.get(i)[2],
-                                            detallesPedidos.get(i)[3],
-                                            detallesPedidos.get(i)[4]));
+                    this.jpnlProductos.add(new Pedidos(detallesPedidos.get(i)));
                 }
             }else{
-                jLabel4.add(new JLabel("Por ahora, no existen pedidos."));
+                this.jpnlProductos.add(new JLabel("<html><span style='font-size:22px'>"+"Por ahora, no existen pedidos."+"</span></html>"));
             }                
             this.jpnlProductos.revalidate();
             this.jpnlProductos.repaint();
-            this.repaint();                
+            this.repaint();
+            
         }else{
             Dialogs.informationDialog("Debe Iniciar Sesión para visualizar los pedidos.");
-            return;
         }
     }//GEN-LAST:event_btnPedidosActionPerformed
 
