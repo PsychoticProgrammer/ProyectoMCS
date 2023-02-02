@@ -20,7 +20,7 @@ public class CRUDProducto {
         try{
             this.ps = this.conexion.getConnection().prepareStatement("""
                     SELECT *
-                    FROM PRODUCTOS=""" );
+                    FROM PRODUCTOS""" );
             
              this.rs = this.ps.executeQuery();
             ArrayList<ArrayList> productosList = new ArrayList();

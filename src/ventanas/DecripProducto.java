@@ -9,7 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 /**
- *
+ *d
  * @author Hola
  */
 public class DecripProducto extends javax.swing.JPanel {
@@ -17,12 +17,18 @@ public class DecripProducto extends javax.swing.JPanel {
     /**
      * Creates new form DecripProducto
      */
-    public DecripProducto() {
+    public DecripProducto(int codigoProducto,String nombre,String precio,String descripcion,String unidadesDisponibles) {
         initComponents();
    
         this.setSize(650, 500);
-        Image imgPro1=Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mouse.png"));
-        lblImg1.setIcon(new ImageIcon(imgPro1.getScaledInstance(lblImg1.getWidth(), lblImg1.getHeight(), Image.SCALE_SMOOTH)));
+       // Image imgPro1=Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/mouse.png"));
+        //lblImg1.setIcon(new ImageIcon(imgPro1.getScaledInstance(lblImg1.getWidth(), lblImg1.getHeight(), Image.SCALE_SMOOTH)));
+        this.txt_cod_pro.setText(String.valueOf(codigoProducto));
+        this.txt_nom_pro.setText(nombre);
+        this.txt_pre_pro.setText(precio);
+        this.txt_desp_pro.setText(descripcion);
+        this.txt_uni_dis.setText(unidadesDisponibles);
+       
         
     }
 
@@ -45,7 +51,7 @@ public class DecripProducto extends javax.swing.JPanel {
         txt_pre_pro = new javax.swing.JTextField();
         txt_desp_pro = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txt_desp_pro1 = new javax.swing.JTextField();
+        txt_uni_dis = new javax.swing.JTextField();
         lblImg1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
@@ -89,8 +95,13 @@ public class DecripProducto extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Descripción:");
 
-        txt_desp_pro1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txt_desp_pro1.setText("jTextField4");
+        txt_uni_dis.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txt_uni_dis.setText("jTextField4");
+        txt_uni_dis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_uni_disActionPerformed(evt);
+            }
+        });
 
         lblImg1.setBackground(new java.awt.Color(0, 102, 153));
         lblImg1.setForeground(new java.awt.Color(255, 51, 255));
@@ -102,21 +113,22 @@ public class DecripProducto extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
+                .addGap(80, 80, 80)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(92, 92, 92)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_nom_pro)
+                                .addComponent(txt_pre_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(92, 92, 92)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_cod_pro)
-                            .addComponent(txt_nom_pro)
-                            .addComponent(txt_pre_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(lblImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_cod_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
@@ -124,7 +136,7 @@ public class DecripProducto extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_desp_pro)
-                    .addComponent(txt_desp_pro1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_uni_dis, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,25 +144,26 @@ public class DecripProducto extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(lblImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_cod_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
+                        .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_nom_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_desp_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_desp_pro1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_uni_dis, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,6 +187,10 @@ public class DecripProducto extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nom_proActionPerformed
 
+    private void txt_uni_disActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_uni_disActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_uni_disActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -185,8 +202,8 @@ public class DecripProducto extends javax.swing.JPanel {
     private javax.swing.JLabel lblImg1;
     private javax.swing.JTextField txt_cod_pro;
     private javax.swing.JTextField txt_desp_pro;
-    private javax.swing.JTextField txt_desp_pro1;
     private javax.swing.JTextField txt_nom_pro;
     private javax.swing.JTextField txt_pre_pro;
+    private javax.swing.JTextField txt_uni_dis;
     // End of variables declaration//GEN-END:variables
 }

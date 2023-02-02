@@ -20,6 +20,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     int numeroFilas = 5; //Se obtendrá: (total de productos a mostrar) dividido para 3
     public static Cliente loggedClient;
     public static JPanel panelProductos;
+    public static JPanel panelDescripProductos;
     
     public PantallaInicial(Cliente cliente) {
         initComponents();
@@ -27,6 +28,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
+      //  panelDescripProductos=this.
         GraphicsEnvironment env =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
