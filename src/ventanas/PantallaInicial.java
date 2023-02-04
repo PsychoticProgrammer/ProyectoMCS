@@ -6,6 +6,7 @@ import Soporte.Dialogs;
 import Carrito.Carrito;
 import Carrito.Favoritos;
 import Clases.Cliente;
+import Clases.Usuario;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     public static PantallaInicial pantallaInicial;
     public boolean logged = false;
     int numeroFilas = 5; //Se obtendrá: (total de productos a mostrar) dividido para 3
-    public static Cliente loggedClient;
+    public static Usuario loggedClient;
     public static JPanel panelProductos;
     
     public PantallaInicial(Cliente cliente) {
@@ -26,7 +27,6 @@ public class PantallaInicial extends javax.swing.JFrame {
         loggedClient = cliente;
         pantallaInicial = this;
         panelProductos = this.jpnlProductos;
-        this.desactivarBotonesAdmin();
         GraphicsEnvironment env =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -39,26 +39,9 @@ public class PantallaInicial extends javax.swing.JFrame {
         this.btnLog.setVisible(false);
         this.setLabelImage(this.logoPrin,"/images/logoPrincipal.png");
         this.setLabelImage(this.jlblCarrito,"/images/carrito.jpg");
-        this.jlblCarrito.setVisible(false);
         this.setLabelImage(this.jlblFavoritos,"/images/favorito.png");
-        this.jlblFavoritos.setVisible(false);
+        this.hideButtons();
         panels();
-        
-        /*ImageIcon imagenLog= new ImageIcon(this.getClass().getResource("/images/user.png"));
-        this.imgLog.setIcon(new ImageIcon(imagenLog.getImage().
-                getScaledInstance(imgLog.getWidth(),imgLog.getHeight(), Image.SCALE_DEFAULT)));
-        
-        
-        ImageIcon logo= new ImageIcon(this.getClass().getResource("/images/logoPrincipal.png"));
-        this.logoPrin.setIcon(new ImageIcon(logo.getImage().
-                getScaledInstance(logoPrin.getWidth(),logoPrin.getHeight(), Image.SCALE_DEFAULT)));
-        
-        ImageIcon carrito= new ImageIcon(this.getClass().getResource("/images/carrito.jpg"));
-        this.jlblCarrito.setIcon(new ImageIcon(carrito.getImage().
-                getScaledInstance(jlblCarrito.getWidth(),jlblCarrito.getHeight(), Image.SCALE_DEFAULT)));
-        */
-                
-        //this.repaint();  
     }
     
     private void setLabelImage(JLabel target, String path){
@@ -66,15 +49,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         target.setIcon(new ImageIcon(image.getImage().
                 getScaledInstance(target.getWidth(),target.getHeight(),Image.SCALE_SMOOTH)));
     }
-    
-    public void setCarritoVisible(boolean isVisible){
-        this.jlblCarrito.setVisible(isVisible);
-    }
-    
-    public void setFavoritosVisible(boolean isVisible){
-        this.jlblFavoritos.setVisible(isVisible);
-    }
-    
+
     public void panels(){
         for (int i = 0; i < 4; i++) {
             //EVENTUALMENTE REEMPLAZAR i POR EL CODIGO DEL PRODUCTO QUE RECIBE
@@ -93,6 +68,50 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnLog.repaint();
         btnLog.setVisible(false);
         this.repaint();
+    }
+    
+    public void showAdminButtons(){
+        this.btnPrdDev.setVisible(true);
+        this.btnAgrAdm.setVisible(true);
+        this.btnChgDatos.setVisible(true);
+    }
+    
+    public void showClientButtons(){
+        this.jlblCarrito.setVisible(true);
+        this.jlblFavoritos.setVisible(true);
+        this.btnChgDatos.setVisible(true);
+        this.btnPedidos.setVisible(true);
+    }
+    
+    public void hideBuyingButtons(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            Product p = (Product)this.jpnlProductos.getComponent(i);
+            p.hideClientButtons();
+        }
+    }
+    
+    public void reloadBuyingButtons(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            Product p = (Product)this.jpnlProductos.getComponent(i);
+            p.showClientButtons();
+        }
+    }
+    
+    public void chargeSelectedItems(){
+        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
+            Product p = (Product)this.jpnlProductos.getComponent(i);
+            p.productoEnCarrito();
+            p.productoEnFavoritos();
+        }
+    }
+    
+    private void hideButtons(){
+        this.jlblCarrito.setVisible(false);
+        this.jlblFavoritos.setVisible(false);
+        this.btnChgDatos.setVisible(false);
+        this.btnPedidos.setVisible(false);
+        this.btnPrdDev.setVisible(false);
+        this.btnAgrAdm.setVisible(false);
     }
     
     @SuppressWarnings("unchecked")
@@ -176,24 +195,21 @@ public class PantallaInicial extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(90, 90, 90)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChgDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnChgDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(164, 164, 164))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(logoPrin, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addGap(164, 164, 164))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(logoPrin, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +230,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 380, 1010);
+        jPanel2.setBounds(0, 0, 339, 1010);
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -257,6 +273,9 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnPrdDev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrdDevActionPerformed(evt);
+            }
+        });
+
         jlblFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlblFavoritosMouseClicked(evt);
@@ -270,15 +289,17 @@ public class PantallaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 958, Short.MAX_VALUE)
-                .addComponent(jlblFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 590, Short.MAX_VALUE)
+                .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(47, 47, 47)
+                .addComponent(jlblFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,26 +307,28 @@ public class PantallaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(imgLog, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jlblCarrito, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                                .addComponent(jlblFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addComponent(imgLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnPrdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAgrAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlblCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlblFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 9, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(380, 0, 1540, 90);
+        jPanel3.setBounds(340, 0, 1570, 100);
 
         btnLog.setBackground(new java.awt.Color(204, 204, 204));
         btnLog.setFont(new java.awt.Font("Cantarell", 1, 22)); // NOI18N
@@ -390,7 +413,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     
     private void btnChgDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChgDatosActionPerformed
         if(logged){
-            ModificarUser mod=new ModificarUser();
+            ModifyUser mod=  new ModifyUser(this);
             mod.setVisible(true);
         }
     }//GEN-LAST:event_btnChgDatosActionPerformed
@@ -405,30 +428,20 @@ public class PantallaInicial extends javax.swing.JFrame {
             loggedClient = null;
             this.logged = false;
             this.cambiarTextLogBtn();
-            this.repaint();
-            this.desactivarBotonesAdmin();
+            this.reloadBuyingButtons();
+            this.hideButtons();
+            //this.repaint();
             return;
         }
         this.setVisible(false);
         Login login = new Login();
         login.setVisible(true);
     }//GEN-LAST:event_btnLogActionPerformed
-
-    public void activarBotonesAdmin(){
-        this.btnPrdDev.setVisible(true);
-        this.btnAgrAdm.setVisible(true);
-    }
-    
-    public void desactivarBotonesAdmin(){
-        this.btnPrdDev.setVisible(false);
-        this.btnAgrAdm.setVisible(false);
-    }
-    
+        
     private void btnAgrAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgrAdmActionPerformed
         if(RegistroForm.registro == null){
-            RegistroForm.registro = new RegistroForm();
+            RegistroForm.registro = new RegistroForm(this);
         }
-        RegistroForm.registro.perfil = "A";
         this.setVisible(false);
         RegistroForm.registro.setVisible(true);
     }//GEN-LAST:event_btnAgrAdmActionPerformed

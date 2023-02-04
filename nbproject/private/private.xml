@@ -3,21 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/BDD/CRUDUsuario.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/Soporte/Dialogs.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/BDD/Conexion.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/ventanas/PantallaInicial.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/Clases/Usuario.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/Clases/Cliente.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/ventanas/RegistroForm.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/ventanas/Login.java</file>
-            <file>file:/C:/Users/dalli/workspace/ProyectoMCS/src/Soporte/Validaciones.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/ventanas/Login.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/BDD/CRUDPedidos.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/ventanas/PantallaInicial.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/ventanas/Pedidos.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/Clases/Cliente.java</file>
-            <file>file:/home/sebastchan/workspace/git/ProyectoMCS/src/BDD/CRUDUsuario.java</file>
+            <file>file:/D:/Archivos%20NetBeans%2016/ProyectoMCS/src/ventanas/RegistroForm.java</file>
+            <file>file:/D:/Archivos%20NetBeans%2016/ProyectoMCS/src/ventanas/Login.java</file>
+            <file>file:/D:/Archivos%20NetBeans%2016/ProyectoMCS/src/ventanas/ModifyUser.java</file>
+            <file>file:/D:/Archivos%20NetBeans%2016/ProyectoMCS/src/ventanas/PantallaInicial.java</file>
         </group>
     </open-files>
 </project-private>

@@ -3,6 +3,7 @@ package Carrito;
 
 import BDD.CRUDCarrito;
 import BDD.CRUDFavoritos;
+import Clases.Cliente;
 import ventanas.PantallaInicial;
 import ventanas.Product;
 
@@ -107,7 +108,7 @@ public class ItemFavorito extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
-        PantallaInicial.loggedClient.getFavoritos().remove((Object)this.codigoProducto);
+        ((Cliente)PantallaInicial.loggedClient).getFavoritos().remove((Object)this.codigoProducto);
         this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);
@@ -120,8 +121,8 @@ public class ItemFavorito extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
-        PantallaInicial.loggedClient.getFavoritos().remove((Object)this.codigoProducto);
-        PantallaInicial.loggedClient.setProductoCarrito(this.codigoProducto);
+        ((Cliente)PantallaInicial.loggedClient).getFavoritos().remove((Object)this.codigoProducto);
+        ((Cliente)PantallaInicial.loggedClient).setProductoCarrito(this.codigoProducto);
         this.baseDatosFavoritos.agregarAlCarrito(this.codigoProducto);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);

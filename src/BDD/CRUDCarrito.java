@@ -1,6 +1,7 @@
 
 package BDD;
 
+import Clases.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class CRUDCarrito {
             this.rs = ps.executeQuery();
             rs.next();
             if(rs.getInt(1) == 1){
-                PantallaInicial.loggedClient.setProductoCarrito(codigoProducto);
+                ((Cliente)PantallaInicial.loggedClient).setProductoCarrito(codigoProducto);
                 return true;
             }
             return false;
