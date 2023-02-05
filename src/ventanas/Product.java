@@ -34,6 +34,20 @@ public class Product extends javax.swing.JPanel {
         return this.codigoProducto;
     }
     
+    public void hideClientButtons(){
+        this.jtbtnCarrito.setVisible(false);
+        this.jtbtnFavorito.setVisible(false);
+    }
+    
+    public void showClientButtons(){
+        this.jtbtnCarrito.setVisible(true);
+        this.jtbtnFavorito.setVisible(true);
+        this.jtbtnCarrito.setSelected(false);
+        this.jtbtnFavorito.setSelected(false);
+        this.setImage(this.jtbtnCarrito,"/images/favoritont.png");
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+    }
+    
     private void setImage(JToggleButton boton, String path){
         boton.setIcon(null);
         ImageIcon image = new ImageIcon(this.getClass().getResource(path));

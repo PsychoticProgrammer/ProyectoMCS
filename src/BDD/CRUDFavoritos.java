@@ -1,6 +1,7 @@
 
 package BDD;
 
+import Clases.Cliente;
 import java.sql.*;
 import java.util.ArrayList;
 import ventanas.PantallaInicial;
@@ -72,7 +73,7 @@ public class CRUDFavoritos extends CRUDCarrito{
             this.rs = this.ps.executeQuery();
             this.rs.next();
             if(this.rs.getInt(1) == 1){
-                PantallaInicial.loggedClient.setProductoCarrito(codigoProducto);
+                ((Cliente)PantallaInicial.loggedClient).setProductoCarrito(codigoProducto);
                 return true;
             }
             return false;

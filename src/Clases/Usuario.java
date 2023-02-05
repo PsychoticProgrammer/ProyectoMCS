@@ -3,7 +3,7 @@ package Clases;
 
 public class Usuario {
     
-    private String cedula, nombre, apellido, direccion, telefono, correo;
+    protected String cedula, nombre, apellido, direccion, telefono, correo, perfil;
     
     public Usuario(String cedula, String nombre, String apellido, String direccion,
             String telefono, String correo){
@@ -13,8 +13,17 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono = telefono;
         this.correo = correo;
+        this.perfil = "A";
     }
 
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
+    
     public String getCedula() {
         return this.cedula;
     }

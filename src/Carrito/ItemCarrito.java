@@ -2,6 +2,7 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
+import Clases.Cliente;
 import ventanas.PantallaInicial;
 import ventanas.Product;
 
@@ -116,7 +117,7 @@ public class ItemCarrito extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
-        PantallaInicial.loggedClient.getCarrito().remove((Object)this.codigoProducto);
+        ((Cliente)PantallaInicial.loggedClient).getCarrito().remove((Object)this.codigoProducto);
         this.baseDatos.deleteProductosCarrito(this.codigoProducto,this.unidades);
         for(int i = 0; i < PantallaInicial.panelProductos.getComponentCount(); i++){
             Product p = (Product)PantallaInicial.panelProductos.getComponent(i);

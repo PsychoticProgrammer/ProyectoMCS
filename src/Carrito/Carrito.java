@@ -2,6 +2,7 @@
 package Carrito;
 
 import BDD.CRUDCarrito;
+import Clases.Cliente;
 import Soporte.Dialogs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class Carrito extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
     private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
-        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
+        if(((Cliente)PantallaInicial.loggedClient).getTarjetaCredito().equals("")){
             Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
             return;
         }
@@ -142,7 +143,7 @@ public class Carrito extends javax.swing.JFrame {
         this.comprarProductos();
         this.jpnlProductos.removeAll();
         this.jpnlProductos.updateUI();
-        PantallaInicial.loggedClient.getCarrito().removeAll(PantallaInicial.loggedClient.getCarrito());
+        ((Cliente)PantallaInicial.loggedClient).getCarrito().removeAll(((Cliente)PantallaInicial.loggedClient).getCarrito());
         this.jbtnComprar.setVisible(false);
         Dialogs.informationDialog("Compra Realizada");
     }//GEN-LAST:event_jbtnComprarActionPerformed
