@@ -1,50 +1,37 @@
 
 package Carrito;
 
-import BDD.CRUDCarrito;
-import Clases.Cliente;
+import BDD.CRUDFavoritos;
 import Soporte.Dialogs;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import ventanas.PantallaInicial;
 
-public class Carrito extends javax.swing.JFrame {
+public class Favoritos extends javax.swing.JFrame {
 
-    private CRUDCarrito baseDatos;
-    public static Carrito productosCarrito;
+    private CRUDFavoritos baseDatos;
+    public static Favoritos productosFavoritos;
     
-    public Carrito() {
+    public Favoritos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        productosCarrito = this;
-        this.jbtnComprar.setVisible(false);
-        this.baseDatos = new CRUDCarrito();
+        productosFavoritos = this;
+        this.jbtnCarrito.setVisible(false);
+        this.baseDatos = new CRUDFavoritos();
         this.initPanelProductos();
     }
     
     public void initPanelProductos(){
         this.jpnlProductos.removeAll();
         this.jpnlProductos.updateUI();
-        ArrayList<String[]> productos = this.baseDatos.readProductosCarrito();
-        if(productos == null){
+        ArrayList<String[]> favoritos = this.baseDatos.readProductosFavoritos();
+        if(favoritos == null){
             return;
         }
-        this.jbtnComprar.setVisible(true);
-        this.jpnlProductos.setLayout(new GridLayout(productos.size(),1));
-        for(int i = 0; i < productos.size(); i++){
-            this.jpnlProductos.add(new ItemCarrito(productos.get(i),this));
-        }
-    }
-    
-    private void comprarProductos(){
-        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
-            ((ItemCarrito)this.jpnlProductos.getComponent(i)).comprarProducto();
-        }
-    }
-    
-    private void reservarProductos(){
-        for(int i = 0; i < this.jpnlProductos.getComponentCount(); i++){
-            ((ItemCarrito)this.jpnlProductos.getComponent(i)).reservarProducto();
+        this.jbtnCarrito.setVisible(true);
+        this.jpnlProductos.setLayout(new GridLayout(favoritos.size(),1));
+        for(int i = 0; i < favoritos.size(); i++){
+            this.jpnlProductos.add(new ItemFavorito(favoritos.get(i),this));
         }
     }
     
@@ -53,7 +40,7 @@ public class Carrito extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jbtnComprar = new javax.swing.JButton();
+        jbtnCarrito = new javax.swing.JButton();
         jbtnAtras = new javax.swing.JButton();
         jscpProductos = new javax.swing.JScrollPane();
         jpnlProductos = new javax.swing.JPanel();
@@ -61,13 +48,13 @@ public class Carrito extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Carrito");
+        jLabel1.setText("Favoritos");
 
-        jbtnComprar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbtnComprar.setText("Comprar");
-        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+        jbtnCarrito.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jbtnCarrito.setText("Ir al Carrito");
+        jbtnCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnComprarActionPerformed(evt);
+                jbtnCarritoActionPerformed(evt);
             }
         });
 
@@ -83,7 +70,7 @@ public class Carrito extends javax.swing.JFrame {
         jpnlProductos.setLayout(jpnlProductosLayout);
         jpnlProductosLayout.setHorizontalGroup(
             jpnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 638, Short.MAX_VALUE)
         );
         jpnlProductosLayout.setVerticalGroup(
             jpnlProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,14 +87,14 @@ public class Carrito extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jscpProductos)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jscpProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jbtnAtras)
-                        .addGap(199, 199, 199)
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtnComprar)
+                        .addComponent(jLabel1)
+                        .addGap(179, 179, 179)
+                        .addComponent(jbtnCarrito)
                         .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
@@ -116,7 +103,7 @@ public class Carrito extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jbtnComprar)
+                    .addComponent(jbtnCarrito)
                     .addComponent(jbtnAtras))
                 .addGap(18, 18, 18)
                 .addComponent(jscpProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
@@ -127,26 +114,14 @@ public class Carrito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAtrasActionPerformed
-        this.reservarProductos();
         this.dispose();
     }//GEN-LAST:event_jbtnAtrasActionPerformed
 
-    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
-        if(((Cliente)PantallaInicial.loggedClient).getTarjetaCredito().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
-            return;
-        }
-        if(PantallaInicial.loggedClient.getDireccion().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar una Dirección de Envío");
-            return;
-        }
-        this.comprarProductos();
-        this.jpnlProductos.removeAll();
-        this.jpnlProductos.updateUI();
-        ((Cliente)PantallaInicial.loggedClient).getCarrito().removeAll(((Cliente)PantallaInicial.loggedClient).getCarrito());
-        this.jbtnComprar.setVisible(false);
-        Dialogs.informationDialog("Compra Realizada");
-    }//GEN-LAST:event_jbtnComprarActionPerformed
+    private void jbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCarritoActionPerformed
+        this.dispose();
+        Carrito c = new Carrito();
+        c.setVisible(true);
+    }//GEN-LAST:event_jbtnCarritoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -183,7 +158,7 @@ public class Carrito extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbtnAtras;
-    private javax.swing.JButton jbtnComprar;
+    private javax.swing.JButton jbtnCarrito;
     private javax.swing.JPanel jpnlProductos;
     private javax.swing.JScrollPane jscpProductos;
     // End of variables declaration//GEN-END:variables
