@@ -3,7 +3,7 @@ package ventanas;
 
 import BDD.*;
 import Soporte.Dialogs;
-import Usuario.Cliente;
+import Clases.Usuario;
 
 public class Login extends javax.swing.JFrame {
     
@@ -127,10 +127,10 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String user = this.txtUser.getText();
+        String userName = this.txtUser.getText();
         String password = String.valueOf(this.txtPassword.getPassword());
-        Cliente client = this.dataBase.readUsuario(user,password);
-        if(client == null){
+        Usuario user = this.dataBase.readUsuario(userName,password);
+        if(user == null){
             Dialogs.warningMessageDialog("Credenciales Incorrectas");
             return;
         }
@@ -138,12 +138,20 @@ public class Login extends javax.swing.JFrame {
         PantallaInicial.pantallaInicial.logged = true;
         PantallaInicial.pantallaInicial.cambiarTextLogBtn();
         PantallaInicial.pantallaInicial.setVisible(true);
-        PantallaInicial.loggedClient = client;
+        PantallaInicial.loggedClient = user;
+        if(user.getPerfil().equals("A")) {
+            PantallaInicial.pantallaInicial.showAdminButtons();
+            PantallaInicial.pantallaInicial.hideBuyingButtons();
+            return;
+        }
+        PantallaInicial.pantallaInicial.showClientButtons();
+        PantallaInicial.pantallaInicial.chargeSelectedItems();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        if(RegistroForm.registro == null)
-            RegistroForm.registro = new RegistroForm();
+        if(RegistroForm.registro == null){
+            RegistroForm.registro = new RegistroForm(this);
+        }
         this.setVisible(false);
         RegistroForm.registro.setVisible(true);
     }//GEN-LAST:event_btnRegistroActionPerformed

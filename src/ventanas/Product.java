@@ -1,32 +1,144 @@
 
 package ventanas;
 
+import BDD.CRUDCarrito;
+import BDD.CRUDFavoritos;
+import Carrito.Carrito;
+import Carrito.Favoritos;
 import Soporte.Dialogs;
 import java.awt.Image;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JToggleButton;
 
 public class Product extends javax.swing.JPanel {
 
-    public Product() {
+    private CRUDCarrito baseDatos;
+    private CRUDFavoritos baseDatosFavoritos;
+    private int codigoProducto;
+    
+    public Product(int codigoProducto) {
         initComponents();
+        this.codigoProducto = codigoProducto;
+        this.baseDatos = new CRUDCarrito();
+        this.baseDatosFavoritos = new CRUDFavoritos();
         ImageIcon imagenPro= new ImageIcon(this.getClass().getResource("/images/user.png"));
         this.imagenProducto.setIcon(new ImageIcon(imagenPro.getImage().
                 getScaledInstance(280,280, Image.SCALE_SMOOTH)));
         this.repaint();
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
     }
     
-    private void validatePurchase(){
-        if(PantallaInicial.loggedClient == null){
-            Dialogs.informationDialog("Debe Iniciar Sesión para realizar una Compra");
-            return;
-        }
-        if(PantallaInicial.loggedClient.getTarjetaCredito().equals("")){
-            Dialogs.warningMessageDialog("Debe proporcionar un Método de Pago");
-            return;
-        }
-        Dialogs.informationDialog("Compra Realizada");
+    public int getCodigoProducto(){
+        return this.codigoProducto;
     }
-
+    
+    public void hideClientButtons(){
+        this.jtbtnCarrito.setVisible(false);
+        this.jtbtnFavorito.setVisible(false);
+    }
+    
+    public void showClientButtons(){
+        this.jtbtnCarrito.setVisible(true);
+        this.jtbtnFavorito.setVisible(true);
+        this.jtbtnCarrito.setSelected(false);
+        this.jtbtnFavorito.setSelected(false);
+        this.setImage(this.jtbtnCarrito,"/images/favoritont.png");
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+    }
+    
+    private void setImage(JToggleButton boton, String path){
+        boton.setIcon(null);
+        ImageIcon image = new ImageIcon(this.getClass().getResource(path));
+        Icon icon =  new ImageIcon(image.getImage().getScaledInstance(
+                58,49,Image.SCALE_SMOOTH));
+        boton.setIcon(icon);
+        boton.repaint();
+    }
+    
+    private boolean validateLogged(){
+        if(PantallaInicial.loggedClient == null){
+            Dialogs.informationDialog("Debe Iniciar Sesión para realizar esta Acción");
+            return false;
+        }
+        return true;
+    }
+    
+    //INICIO ACTUALIZACION DESDE VENTANA EMERGENTE
+    /*TODA LA SECCIÓN DE VENTANA EMERGENTE SIRVE PARA ACTUALIZAR EL PANEL CUANDO SE HAGAN
+    OPERACIONES SOBRE PRODUCTOS DE CARRITO O FAVORITOS DESDE LA VENTANA EMERGENTE.
+    LA SIGUIENTE SECCIÓN DONDE SE NOMBRAN LOS MÉTODOS CON VERBOS, ESTÁ DESTINADA A
+    CUANDO EL USUARIO MANIPULA DIRECTO DESDE EL PANEL EN LA PNATALLA INCIAL*/
+    public void productoEnCarrito(){
+        if(this.baseDatos.estaEnCarrito(this.codigoProducto)){
+            this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+            this.jtbtnCarrito.setSelected(true);
+        }
+    }
+    
+    public void productoRetiradoCarrito(){
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+        this.jtbtnCarrito.setSelected(false);
+    }
+    
+    public void productoEnFavoritos(){
+        if(this.baseDatosFavoritos.isFavorito(this.codigoProducto)){
+            this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+            this.jtbtnFavorito.setSelected(true);
+        }
+    }
+    
+    public void productoRetiradoFavoritos(){
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+        this.jtbtnFavorito.setSelected(false);
+    }
+    //FIN ACTUALIZACIÓN VENTANA EMERGENTE
+    
+    private void agregarAlCarrito(){
+        if(this.jtbtnFavorito.isSelected()){
+            this.retirarFavoritos();
+        }
+        this.baseDatos.createProductoCarrito(this.codigoProducto);
+        if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible()){
+                Carrito.productosCarrito.initPanelProductos();
+            }
+        this.setImage(this.jtbtnCarrito,"/images/quitarCarrito.png");
+    }
+    
+    private void retirarDelCarrito(){
+        int unidades = this.baseDatos.readCantidadUnidades(this.codigoProducto);
+        if(unidades == -1){
+            return;
+        }
+        this.baseDatos.deleteProductosCarrito(this.codigoProducto,unidades);
+        if(Carrito.productosCarrito != null && Carrito.productosCarrito.isVisible() ){
+            Carrito.productosCarrito.initPanelProductos();
+        }
+        this.setImage(this.jtbtnCarrito,"/images/agregarCarrito.png");
+        this.jtbtnCarrito.setSelected(false);
+    }
+    
+    private void agregarFavoritos(){
+        if(this.jtbtnCarrito.isSelected()){
+            this.retirarDelCarrito();
+        }
+        this.baseDatosFavoritos.createProductoFavorito(this.codigoProducto);
+            if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+                Favoritos.productosFavoritos.initPanelProductos();
+            }
+        this.setImage(this.jtbtnFavorito,"/images/favorito.png");
+    }
+    
+    private void retirarFavoritos(){
+        this.baseDatosFavoritos.deleteProductoFavorito(this.codigoProducto);
+        if(Favoritos.productosFavoritos != null && Favoritos.productosFavoritos.isVisible()){
+            Favoritos.productosFavoritos.initPanelProductos();
+        }
+        this.setImage(this.jtbtnFavorito,"/images/favoritont.png");
+        this.jtbtnFavorito.setSelected(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,13 +147,13 @@ public class Product extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jbtnComprar = new javax.swing.JButton();
+        jtbtnCarrito = new javax.swing.JToggleButton();
+        jtbtnFavorito = new javax.swing.JToggleButton();
 
         setBackground(new java.awt.Color(252, 247, 247));
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre Producto ");
 
         jLabel2.setFont(new java.awt.Font("Comfortaa", 1, 28)); // NOI18N
@@ -49,17 +161,20 @@ public class Product extends javax.swing.JPanel {
         jLabel2.setText("$10.00");
 
         jLabel3.setFont(new java.awt.Font("Cantarell Light", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Disponibles: 8");
 
-        jbtnComprar.setBackground(new java.awt.Color(204, 204, 0));
-        jbtnComprar.setFont(new java.awt.Font("Cantarell", 1, 20)); // NOI18N
-        jbtnComprar.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnComprar.setText("Comprar");
-        jbtnComprar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtnComprar.addActionListener(new java.awt.event.ActionListener() {
+        jtbtnCarrito.setBackground(new java.awt.Color(204, 204, 0));
+        jtbtnCarrito.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jtbtnCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnComprarActionPerformed(evt);
+                jtbtnCarritoActionPerformed(evt);
+            }
+        });
+
+        jtbtnFavorito.setBackground(new java.awt.Color(204, 204, 0));
+        jtbtnFavorito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtbtnFavoritoActionPerformed(evt);
             }
         });
 
@@ -68,21 +183,24 @@ public class Product extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnComprar))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(10, Short.MAX_VALUE)
-                        .addComponent(imagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtbtnFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtbtnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -94,17 +212,36 @@ public class Product extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jbtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtbtnCarrito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtbtnFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnComprarActionPerformed
-        this.validatePurchase();
-    }//GEN-LAST:event_jbtnComprarActionPerformed
+    private void jtbtnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnCarritoActionPerformed
+        if(this.jtbtnCarrito.isSelected()&& this.validateLogged()){
+            this.agregarAlCarrito();
+            return;
+        } else if(!this.jtbtnCarrito.isSelected() && this.validateLogged()){
+            this.retirarDelCarrito();
+            return;
+        }
+        this.jtbtnCarrito.setSelected(false);
+    }//GEN-LAST:event_jtbtnCarritoActionPerformed
+
+    private void jtbtnFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbtnFavoritoActionPerformed
+        if(this.jtbtnFavorito.isSelected() && this.validateLogged()){
+            this.agregarFavoritos();
+            return;
+        } else if(!this.jtbtnFavorito.isSelected() && this.validateLogged()){
+            this.retirarFavoritos();
+            return;
+        }
+        this.jtbtnFavorito.setSelected(false);
+    }//GEN-LAST:event_jtbtnFavoritoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -112,6 +249,7 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton jbtnComprar;
+    private javax.swing.JToggleButton jtbtnCarrito;
+    private javax.swing.JToggleButton jtbtnFavorito;
     // End of variables declaration//GEN-END:variables
 }
